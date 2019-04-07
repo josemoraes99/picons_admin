@@ -11,4 +11,19 @@ function myAlertTop(){
         $(".myAlert-top").hide(); 
     }, 2000);
 }
+
+$("#menuPiconShow").click(function(){
+    console.log("painelNew");
+    $(".painelPicons").hide();
+    $(".painelNew").show();
+});
+
+$("#menuListaShow").click(function(){
+    console.log("painelLista");
+    $(".painelPicons").hide();
+    $(".painelLista").show();
+});
+
 console.log("ok");
+
+$(".painelNew").show();
