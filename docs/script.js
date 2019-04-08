@@ -13,11 +13,12 @@ function myAlertTop(){
     }, 2000);
 }
 
-const getListChannels = async ()=> {
+const getListChannels = async () => {
+    console.log("load list");
     let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/list/aaa');
     let data = await response.json();
+    return data;
 };
-
 
 $("#menuPiconShow").click(function(){
     console.log("painelNew");
