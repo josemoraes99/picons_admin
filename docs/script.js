@@ -3,6 +3,7 @@
 
 let cnt1=[];
 let optSelec='';
+let channelList;
 //$('.slcI').append(optSelec);
 let menuC = 'menuCshow';
 function myAlertTop(){
@@ -11,6 +12,12 @@ function myAlertTop(){
         $(".myAlert-top").hide(); 
     }, 2000);
 }
+
+const getListChannels = async ()=> {
+    let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/list/aaa');
+    let data = await response.json();
+};
+
 
 $("#menuPiconShow").click(function(){
     console.log("painelNew");
@@ -27,3 +34,5 @@ $("#menuListaShow").click(function(){
 console.log("ok");
 
 $(".painelNew").show();
+
+console.log( getListChannels() );
