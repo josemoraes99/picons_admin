@@ -31,8 +31,14 @@ $("#menuListaShow").click(function(){
     $(".painelLista").show();
 });
 
-console.log("ok");
 
-$(".painelNew").show();
+const main = async ()=> {
+    console.log("ok");
 
-console.log( await getListChannels() );
+    $(".painelNew").show();
+
+    channelList = await getListChannels();
+    console.log(channelList);
+};
+
+main();
