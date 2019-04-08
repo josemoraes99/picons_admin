@@ -35,4 +35,4 @@ console.log("ok");
 
 $(".painelNew").show();
 
-console.log( getListChannels() );
+console.log( await getListChannels() );
