@@ -1,12 +1,10 @@
 /*jshint esversion: 6 */
 "use strict";
 
-// let cnt1=[];
-// let optSelec='';
+// version 0.1
+
 let channelList;
 let authkey = false;
-//$('.slcI').append(optSelec);
-// let menuC = 'menuCshow';
 
 function myAlertTop(){
     $(".myAlert-top").show();
@@ -162,75 +160,14 @@ function processChannelList(chanArr){
             divRow.appendChild(divCol2);
             divPainelLista.appendChild(divRow);
         }
-/*
-            // let divCol2 = document.createElement('div');
-
-            if ( itemChannel.stat != "file" ){
-                let sel = document.createElement("select");
-                let opt1 = document.createElement("option");
-                opt1.value = itemChannel.redir;
-                opt1.text = itemChannel.redir;
-                sel.add(opt1, null);
-                sel.className = "selectChannelWithFile";
-                sel.id = "sele." + itemChannel.channell;
-                divCol2.appendChild(sel);
-            }
-
-            // let divRow = document.createElement('div');
-            // let divCol1 = document.createElement('div');
-            let label1Txt = document.createTextNode(itemChannel.channell);
-            divCol1.appendChild(label1Txt);
-
-
-            divRow.appendChild(divCol1);
-            divRow.appendChild(divCol2);
-            // divRow.className = "row justify-content-center align-items-center";
-            // divCol1.className = "col-1";
-            // divCol2.className = "col-1";
-            divPainelLista.appendChild(divRow);
-
-        }*/
     });
-    console.log("pre");
-    // for ( let i = 0; i < listChannelsWithFile.length; i++ ){
-    //     console.log(listChannelsWithFile[i]);
-    //     let fSelect = document.getElementById("sele." + listChannelsWithFile[i] );
-    //     fSelect.value = listChannelsWithFile[i];
-    // }
-    /*let selecDivs = document.getElementsByClassName('selectChannelWithFile');
-    for ( let i = 0; i < selecDivs.length; i++ ) {
-        // console.log( selecDivs[i].value );
-        const originalValue = selecDivs[i].value;
-        if ( originalValue != 1 ){
-            while (selecDivs[i].firstChild) {
-                selecDivs[i].removeChild(selecDivs[i].firstChild);
-            }
-        }
-        for ( let j = 0; j < listChannelsWithFile.length; j++ ) {
-            if ( j == 0 ){
-                let opt1 = document.createElement("option");
-                opt1.value = "1";
-                opt1.text = "";
-                selecDivs[i].add(opt1, null);
-            }
-            let opt1 = document.createElement("option");
-            // opt1.value = listChannelsWithFile[j];
-            opt1.text = listChannelsWithFile[j];
-            selecDivs[i].add(opt1, null);
-        }
-        selecDivs[i].value = originalValue;
-    }*/
-    console.log("after1");
     afterDomChange();
-    console.log("after2");
 }
 
 const funcGetChannelsList = async () => {
-    console.log("1");
     channelList = await getListChannels();
     channelList.sort(dynamicSort("channell"));
     processChannelList(channelList);
-    console.log("2");
 };
 
 const main = async ()=> {
