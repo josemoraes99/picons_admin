@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 "use strict";
 
-// version 0.2
+// version 0.3
 
 let channelList;
 let __authkey__ = false;
