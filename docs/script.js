@@ -58,7 +58,7 @@ $("#menuListaRefresh").click(function(){
 
 $("#menuLogout").click(function(){
     __authkey__ = false;
-    writeCookie('sessionId', __authkey__, 3);
+    writeCookie('sessionId', __authkey__, -1);
     showPage();
 });
 
@@ -213,6 +213,8 @@ function checkAuth(au){
     if ( au === false ){
         __authkey__ = false;
         showPage();
+    } else {
+        writeCookie('sessionId', __authkey__, 3);
     }
 }
 
