@@ -1,7 +1,7 @@
 /*jshint esversion: 6 */
 "use strict";
 
-// version 0.4
+// version 0.5
 
 let channelList;
 let __authkey__ = false;
@@ -58,7 +58,7 @@ $("#menuListaRefresh").click(function(){
 
 $("#menuLogout").click(function(){
     __authkey__ = false;
-    deleteAllCookies();
+    writeCookie('sessionId', __authkey__, 3);
     showPage();
 });
 
@@ -117,16 +117,6 @@ function writeCookie(name,value,days) {
     document.cookie = name + "=" + value + expires + "; path=/";
 }
 
-// function writeCookie(name,value,days) {  
-//     var now = new Date();  
-//     now.setMonth( now.getMonth() + 1 );  
-//     // cookievalue = escape(document.myform.customer.value) + ";"  
-//     document.cookie = name + " = " + value;  
-//     document.cookie = "expires = " + now.toUTCString() + ";"  
-//     console.log("set cookie");
-//     // document.write ("Setting Cookies : " + "name = " + cookievalue );  
-// } 
-
 function readCookie(name) {
     let i, c, ca, nameEQ = name + "=";
     ca = document.cookie.split(';');
@@ -140,18 +130,6 @@ function readCookie(name) {
         }
     }
     return '';
-}
-
-function deleteAllCookies() {
-    let cookies
-    cookies = document.cookie.split(';');
-
-    for (let i = 0; i < cookies.length; i++) {
-        let cookie = cookies[i];
-        let eqPos = cookie.indexOf("=");
-        let name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
-    }
 }
 
 function afterDomChange(){
