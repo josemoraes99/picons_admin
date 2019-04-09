@@ -19,6 +19,7 @@ const getListChannels = async () => {
     console.log("load list");
     let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/list/' + authkey);
     let data = await response.json();
+    console.log("load list finished");
     return data;
 };
 
@@ -68,7 +69,7 @@ const changeChannelStat = async (pic, redir) => {
     let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/change/' + pic + '/' + redir + '/' + authkey);
     let data = await response.json();
     let resp = JSON.parse(data);
-    console.log(resp);
+    // console.log(resp);
     // console.log(resp.changed);
     if ( resp.changed == "true" ){
         // console.log("oook");
@@ -109,38 +110,62 @@ function processChannelList(chanArr){
         divPainelLista.removeChild(divPainelLista.firstChild);
     }
 
-    let listChannelsWithFile =[];
+
+
+
+    let sel = document.createElement("select");
+    let opt1 = document.createElement("option");
+    opt1.value = "1";
+    opt1.text = "";
+    sel.add(opt1, null);
 
     chanArr.forEach(function (itemChannel, index) {
+        if ( itemChannel.stat == "file" ){
+            let opt1 = document.createElement("option");
+            opt1.text = itemChannel.channell;
+            sel.add(opt1, null);
+        }
+    });
+
+    chanArr.forEach(function (itemChannel, index) {
+        let divRow = document.createElement('div');
+        let divCol1 = document.createElement('div');
+        let divCol2 = document.createElement('div');
+        divRow.className = "row justify-content-center align-items-center";
+        divCol1.className = "col-1";
+        divCol2.className = "col-1";
+        let label1Txt = document.createTextNode(itemChannel.channell);
+        
         if ( itemChannel.stat == "undef" ){
-            let divRow = document.createElement('div');
-            let divCol1 = document.createElement('div');
-            let divCol2 = document.createElement('div');
-            let label1Txt = document.createTextNode(itemChannel.channell);
             divCol1.appendChild(label1Txt);
 
-            let sel = document.createElement("select");
-            // let opt1 = document.createElement("option");
-            // opt1.value = "1";
-            // opt1.text = "";
-            // sel.add(opt1, null);
-            sel.className = "selectChannelWithFile";
-            sel.id = "sele." + itemChannel.channell;
-            divCol2.appendChild(sel);
+            var newSelect = sel.cloneNode(true);
+            newSelect.className = "selectChannelWithFile";
+            newSelect.id = "sele." + itemChannel.channell;
+            divCol2.appendChild(newSelect);
 
             divRow.appendChild(divCol1);
             divRow.appendChild(divCol2);
-            divRow.className = "row justify-content-center align-items-center";
-            divCol1.className = "col-1";
-            divCol2.className = "col-1";
             divPainelNew.appendChild(divRow);
         } else {
+            if ( itemChannel.stat != "file" ){
+                var newSelect = sel.cloneNode(true);
+                newSelect.className = "selectChannelWithFile";
+                newSelect.id = "sele." + itemChannel.channell;
+                divCol2.appendChild(newSelect);
+                newSelect.value = itemChannel.redir;
+            }
+            divCol1.appendChild(label1Txt);
 
-            let divCol2 = document.createElement('div');
 
-            if ( itemChannel.stat == "file" ){
-                listChannelsWithFile.push(itemChannel.channell);
-            } else {
+            divRow.appendChild(divCol1);
+            divRow.appendChild(divCol2);
+            divPainelLista.appendChild(divRow);
+        }
+/*
+            // let divCol2 = document.createElement('div');
+
+            if ( itemChannel.stat != "file" ){
                 let sel = document.createElement("select");
                 let opt1 = document.createElement("option");
                 opt1.value = itemChannel.redir;
@@ -151,23 +176,28 @@ function processChannelList(chanArr){
                 divCol2.appendChild(sel);
             }
 
-            let divRow = document.createElement('div');
-            let divCol1 = document.createElement('div');
+            // let divRow = document.createElement('div');
+            // let divCol1 = document.createElement('div');
             let label1Txt = document.createTextNode(itemChannel.channell);
             divCol1.appendChild(label1Txt);
 
 
             divRow.appendChild(divCol1);
             divRow.appendChild(divCol2);
-            divRow.className = "row justify-content-center align-items-center";
-            divCol1.className = "col-1";
-            divCol2.className = "col-1";
+            // divRow.className = "row justify-content-center align-items-center";
+            // divCol1.className = "col-1";
+            // divCol2.className = "col-1";
             divPainelLista.appendChild(divRow);
 
-        }
+        }*/
     });
-
-    let selecDivs = document.getElementsByClassName('selectChannelWithFile');
+    console.log("pre");
+    // for ( let i = 0; i < listChannelsWithFile.length; i++ ){
+    //     console.log(listChannelsWithFile[i]);
+    //     let fSelect = document.getElementById("sele." + listChannelsWithFile[i] );
+    //     fSelect.value = listChannelsWithFile[i];
+    // }
+    /*let selecDivs = document.getElementsByClassName('selectChannelWithFile');
     for ( let i = 0; i < selecDivs.length; i++ ) {
         // console.log( selecDivs[i].value );
         const originalValue = selecDivs[i].value;
@@ -189,14 +219,18 @@ function processChannelList(chanArr){
             selecDivs[i].add(opt1, null);
         }
         selecDivs[i].value = originalValue;
-    }
+    }*/
+    console.log("after1");
     afterDomChange();
+    console.log("after2");
 }
 
 const funcGetChannelsList = async () => {
+    console.log("1");
     channelList = await getListChannels();
     channelList.sort(dynamicSort("channell"));
     processChannelList(channelList);
+    console.log("2");
 };
 
 const main = async ()=> {
@@ -254,3 +288,92 @@ $('.slChannel').change(function() {
     alterarEpg(id,oper,chan)
 });
 */
+
+
+
+
+
+
+
+/*    chanArr.forEach(function (itemChannel, index) {
+        if ( itemChannel.stat == "undef" ){
+            let divRow = document.createElement('div');
+            let divCol1 = document.createElement('div');
+            let divCol2 = document.createElement('div');
+            let label1Txt = document.createTextNode(itemChannel.channell);
+            divCol1.appendChild(label1Txt);
+
+            let sel = document.createElement("select");
+            // let opt1 = document.createElement("option");
+            // opt1.value = "1";
+            // opt1.text = "";
+            // sel.add(opt1, null);
+            sel.className = "selectChannelWithFile";
+            sel.id = "sele." + itemChannel.channell;
+            divCol2.appendChild(sel);
+
+            divRow.appendChild(divCol1);
+            divRow.appendChild(divCol2);
+            divRow.className = "row justify-content-center align-items-center";
+            divCol1.className = "col-1";
+            divCol2.className = "col-1";
+            divPainelNew.appendChild(divRow);
+        } else {
+
+            let divCol2 = document.createElement('div');
+
+            if ( itemChannel.stat == "file" ){
+                //listChannelsWithFile.push(itemChannel.channell);
+            } else {
+                let sel = document.createElement("select");
+                let opt1 = document.createElement("option");
+                opt1.value = itemChannel.redir;
+                opt1.text = itemChannel.redir;
+                sel.add(opt1, null);
+                sel.className = "selectChannelWithFile";
+                sel.id = "sele." + itemChannel.channell;
+                divCol2.appendChild(sel);
+            }
+
+            let divRow = document.createElement('div');
+            let divCol1 = document.createElement('div');
+            let label1Txt = document.createTextNode(itemChannel.channell);
+            divCol1.appendChild(label1Txt);
+
+
+            divRow.appendChild(divCol1);
+            divRow.appendChild(divCol2);
+            divRow.className = "row justify-content-center align-items-center";
+            divCol1.className = "col-1";
+            divCol2.className = "col-1";
+            divPainelLista.appendChild(divRow);
+
+        }
+    });
+    console.log("pre");
+    let selecDivs = document.getElementsByClassName('selectChannelWithFile');
+    for ( let i = 0; i < selecDivs.length; i++ ) {
+        // console.log( selecDivs[i].value );
+        const originalValue = selecDivs[i].value;
+        if ( originalValue != 1 ){
+            while (selecDivs[i].firstChild) {
+                selecDivs[i].removeChild(selecDivs[i].firstChild);
+            }
+        }
+        for ( let j = 0; j < listChannelsWithFile.length; j++ ) {
+            if ( j == 0 ){
+                let opt1 = document.createElement("option");
+                opt1.value = "1";
+                opt1.text = "";
+                selecDivs[i].add(opt1, null);
+            }
+            let opt1 = document.createElement("option");
+            // opt1.value = listChannelsWithFile[j];
+            opt1.text = listChannelsWithFile[j];
+            selecDivs[i].add(opt1, null);
+        }
+        selecDivs[i].value = originalValue;
+    }
+    console.log("after1");
+    afterDomChange();
+    console.log("after2");*/
