@@ -105,6 +105,66 @@ const changeChannelStat = async (pic, redir) => {
     }
 };
 
+const removeChannel = async (chn) => {
+    console.log("change channel", chn);
+
+    if ( __authkey__ ){
+        // remover api
+        let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/remove/' + chn + '/' + __authkey__);
+        let data = await response.json();
+        console.log(data);
+        let resp = JSON.parse(data);
+        checkAuth(resp.authenticated);
+        // console.log(resp);
+        // console.log(resp.changed);
+        if ( resp.removed == "true" ){
+            // console.log("oook");
+            myAlertTop("Removido!");
+        }
+        // remover api
+
+        for (let i = 0; i < channelList.length; i++) {
+            const nome = channelList[i].channell;
+            if ( nome == chn ){
+                channelList.splice(i,1);
+            }
+         }
+        processChannelList(channelList);
+    }
+};
+
+const changeChannelCategorie = async (pic, newCat) => {
+    console.log("change channel", pic, newCat);
+    if ( __authkey__ ){
+        // alterar api
+        let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/changecategorie/' + pic + '/' + newCat + '/' + __authkey__);
+        let data = await response.json();
+        let resp = JSON.parse(data);
+        checkAuth(resp.authenticated);
+        // console.log(resp);
+        // console.log(resp.changed);
+        if ( resp.changed == "true" ){
+            // console.log("oook");
+            myAlertTop("Alterado!");
+            await funcGetChannelsList();
+        }
+        // alterar api
+
+        // channelList.forEach(function (itemChannel, index){
+        //     if ( itemChannel.channell == pic ){
+        //         if ( redir != 1 ) {
+        //             itemChannel.stat = "redir";
+        //             itemChannel.redir = redir;
+        //         } else {
+        //             itemChannel.stat = "undef";
+        //             itemChannel.redir = false;
+        //         }
+        //     }
+        // });
+        // processChannelList(channelList);
+    }
+};
+
 function writeCookie(name,value,days) {
     let date, expires;
     if (days) {
@@ -138,9 +198,23 @@ function afterDomChange(){
         const newval = $(this).val();
         changeChannelStat(id, newval);
     });
+
+    $('.selectCategorie').change(function() {
+        const id  = $(this).attr("id").replace("seleCat.", "");
+        const newval = $(this).val();
+        changeChannelCategorie(id, newval);
+    });
+
+    $('.btnRemove').click(function() {
+        const id  = $(this).attr("id").replace("button.", "");
+        console.log(id);
+        // const newval = $(this).val();
+        removeChannel(id);
+    });
 }
 
 function processChannelList(chanArr){
+    const categorias = ['variedades', 'interno', 'adultos'];
     let divPainelNew = document.getElementsByClassName('painelNew')[0];
     let divPainelLista = document.getElementsByClassName('painelLista')[0];
     while (divPainelNew.firstChild) {
@@ -156,6 +230,15 @@ function processChannelList(chanArr){
     opt1.text = "";
     sel.add(opt1, null);
 
+    let selCat = document.createElement("select");
+    for (let i = 0; i < categorias.length; i++) {
+        const element = categorias[i];
+        let optCat = document.createElement("option");
+        optCat.text = element;
+        optCat.value = element;
+        selCat.add(optCat, null);
+    }
+
     chanArr.forEach(function (itemChannel, index) {
         if ( itemChannel.stat == "file" ){
             let opt1 = document.createElement("option");
@@ -168,35 +251,56 @@ function processChannelList(chanArr){
         let divRow = document.createElement('div');
         let divCol1 = document.createElement('div');
         let divCol2 = document.createElement('div');
+        let divCol3 = document.createElement('div');
         divRow.className = "row justify-content-center align-items-center";
-        divCol1.className = "col-1";
+        divCol1.className = "col-2";
         divCol2.className = "col-1";
+        divCol3.className = "col-2";
         let label1Txt = document.createTextNode(itemChannel.channell);
         
         if ( itemChannel.stat == "undef" ){
             divCol1.appendChild(label1Txt);
 
-            var newSelect = sel.cloneNode(true);
+            let newSelect = sel.cloneNode(true);
             newSelect.className = "selectChannelWithFile";
             newSelect.id = "sele." + itemChannel.channell;
             divCol2.appendChild(newSelect);
 
+            let removeBtn = document.createElement('button');
+            removeBtn.type = "button";
+            removeBtn.className = "btn btn-sm btn-danger btnRemove";
+            removeBtn.id = "button." + itemChannel.channell;
+            removeBtn.innerHTML = "Remover";
+            divCol3.appendChild(removeBtn);
+
+{/* <button type="button" class="btn btn-sm btn-danger" id="btnR%s">Remover</button> */}
+
             divRow.appendChild(divCol1);
             divRow.appendChild(divCol2);
+            divRow.appendChild(divCol3);
             divPainelNew.appendChild(divRow);
         } else {
+
+            let newSelectCat = selCat.cloneNode(true);
+            newSelectCat.className = "selectCategorie";
+            newSelectCat.id = "seleCat." + itemChannel.channell;
+            divCol3.appendChild(newSelectCat);
+            newSelectCat.value = itemChannel.categoria;
+
             if ( itemChannel.stat != "file" ){
-                var newSelect = sel.cloneNode(true);
+                let newSelect = sel.cloneNode(true);
                 newSelect.className = "selectChannelWithFile";
                 newSelect.id = "sele." + itemChannel.channell;
                 divCol2.appendChild(newSelect);
                 newSelect.value = itemChannel.redir;
+
+                newSelectCat.disabled = true;
             }
             divCol1.appendChild(label1Txt);
 
-
             divRow.appendChild(divCol1);
             divRow.appendChild(divCol2);
+            divRow.appendChild(divCol3);
             divPainelLista.appendChild(divRow);
         }
     });
