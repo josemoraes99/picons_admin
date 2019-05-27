@@ -18,8 +18,9 @@ const getListChannels = async () => {
     console.log("load list");
     if (__authkey__) {
         let response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod/list/' + __authkey__);
-        let data = await response.json();
-        let resp = JSON.parse(data);
+        let resp = await response.json();
+        // let data = await response.json();
+        // let resp = JSON.parse(data);
         checkAuth(resp.authenticated);
         return resp.listChan;
     }
