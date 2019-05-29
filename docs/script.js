@@ -424,7 +424,7 @@ const checkJWT = async () => {
         console.log('data loaded OK', dbD);
         __authkey__ = dbD.data;
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
     }
 
     console.log("s1");
