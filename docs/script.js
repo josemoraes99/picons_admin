@@ -412,6 +412,17 @@ const removeChannel = async (chn) => {
 
 //---------------------------------------------------------------------------------------//
 
+const checkJWT = async () => {
+    // Load some data
+    var id = 1;
+    loadFromIndexedDB('objectstoreName', id).then(function (reponse) {
+        data = reponse;
+        console.log('data loaded OK', data);
+    }).catch(function (error) {
+        console.log(error.message);
+    });
+};
+
 const main = async () => {
     checkJWT();
     showPage();
@@ -423,16 +434,6 @@ main();
 
 //---------------------------------------------------------------------------------------//
 
-const checkJWT = async () => {
-    // Load some data
-    var id = 1;
-    loadFromIndexedDB('objectstoreName', id).then(function (reponse) {
-        data = reponse;
-        console.log('data loaded OK', data);
-    }).catch(function (error) {
-        console.log(error.message);
-    });
-};
 
 /*
 
