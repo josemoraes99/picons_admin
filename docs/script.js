@@ -186,8 +186,10 @@ const processLogin = async (usr, pwd) => {
 
 const loadChannelsList = async () => {
     channelList = await getListChannels();
-    channelList.sort(dynamicSort("channell"));
-    processChannelList(channelList);
+    if (channelList) {
+        channelList.sort(dynamicSort("channell"));
+        processChannelList(channelList);
+    }
 };
 
 const getUrlData = async (payload) => {
@@ -218,6 +220,8 @@ const getListChannels = async () => {
     if (response) {
         // console.log(response);
         return response;
+    } else {
+        return false;
     }
 };
 
