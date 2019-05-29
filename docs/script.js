@@ -437,7 +437,6 @@ const checkJWT = async () => {
         console.log(error.message);
     }
 
-    console.log("s1");
 
     // await loadFromIndexedDB('objectstoreName', id).then(function (reponse) {
     //     const dbData = reponse;
@@ -452,7 +451,6 @@ const checkJWT = async () => {
 
 const main = async () => {
     await checkJWT();
-    console.log("s2");
     showPage();
 };
 
