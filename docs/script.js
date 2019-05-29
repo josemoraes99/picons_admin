@@ -414,10 +414,11 @@ const removeChannel = async (chn) => {
 
 const checkJWT = async () => {
     // Load some data
-    var id = 1;
+    var id = "tk";
     loadFromIndexedDB('objectstoreName', id).then(function (reponse) {
         const dbData = reponse;
         console.log('data loaded OK', dbData);
+        __authkey__ = dbData.data;
     }).catch(function (error) {
         console.log(error.message);
     });
