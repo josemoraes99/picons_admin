@@ -416,8 +416,8 @@ const checkJWT = async () => {
     // Load some data
     var id = 1;
     loadFromIndexedDB('objectstoreName', id).then(function (reponse) {
-        data = reponse;
-        console.log('data loaded OK', data);
+        const dbData = reponse;
+        console.log('data loaded OK', dbData);
     }).catch(function (error) {
         console.log(error.message);
     });
