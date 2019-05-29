@@ -441,7 +441,7 @@ const checkJWT = async () => {
 };
 
 const main = async () => {
-    await checkJWT();
+    // await checkJWT();
     console.log("s2");
     showPage();
 };
