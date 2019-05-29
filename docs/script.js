@@ -431,7 +431,7 @@ const checkJWT = async () => {
     const id = "tk";
     try {
         const dbD = await loadFromIndexedDB('objectstoreName', id);
-        console.log('data loaded OK', dbD);
+        // console.log('data loaded OK', dbD);
         __authkey__ = dbD.data;
     } catch (error) {
         console.log(error.message);
