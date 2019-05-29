@@ -419,7 +419,7 @@ const checkJWT = async () => {
         const dbData = reponse;
         console.log('data loaded OK', dbData);
         __authkey__ = dbData.data;
-        console.log("s1");
+        console.log("s1_");
 
     }).catch(function (error) {
         console.log(error.message);
