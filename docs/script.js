@@ -27,7 +27,17 @@ $("#menuListaRefresh").click(function () {
 
 $("#menuLogout").click(function () {
     __authkey__ = false;
-    // writeCookie('sessionId', __authkey__, -1); // verificar logout
+    var dbData = {
+        'id': "tk",
+        'data': ""
+    };
+    saveToIndexedDB('objectstoreName', dbData).then(function (response) {
+        // alert('data saved');
+        // console.log('token saved')
+    }).catch(function (error) {
+        // alert(error.message);
+        console.log(error.message)
+    });
     showPage();
 });
 
