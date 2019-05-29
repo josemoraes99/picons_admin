@@ -163,11 +163,11 @@ const processLogin = async (usr, pwd) => {
         // salvar token!!
         // writeCookie('sessionId', __authkey__, 3); 
 
-        var data = {
+        var dbData = {
             'id': "tk",
             'data': __authkey__
         };
-        saveToIndexedDB('objectstoreName', data).then(function (response) {
+        saveToIndexedDB('objectstoreName', dbData).then(function (response) {
             // alert('data saved');
             console.log('token saved')
         }).catch(function (error) {
