@@ -162,6 +162,19 @@ const processLogin = async (usr, pwd) => {
         __authkey__ = data.token;
         // salvar token!!
         // writeCookie('sessionId', __authkey__, 3); 
+
+        var data = {
+            'id': "tk",
+            'data': __authkey__
+        };
+        saveToIndexedDB('objectstoreName', data).then(function (response) {
+            // alert('data saved');
+            console.log('token saved')
+        }).catch(function (error) {
+            // alert(error.message);
+            console.log(error.message)
+        });
+
         showPage();
     } else {
         $(".loginerrormsg").show();
@@ -401,16 +414,6 @@ const removeChannel = async (chn) => {
 
 const main = async () => {
     showPage();
-    var data = {
-        'id': 1,
-        'name': 'bla'
-    };
-
-    saveToIndexedDB('objectstoreName', data).then(function (response) {
-        alert('data saved');
-    }).catch(function (error) {
-        alert(error.message);
-    });
 };
 
 //---------------------------------------------------------------------------------------//
