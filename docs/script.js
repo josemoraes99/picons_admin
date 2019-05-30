@@ -217,7 +217,6 @@ const getUrlData = async (payload) => {
         // console.log(data);
         if (data.auth) {
             if (__authkey__ != data.token) {
-                console.log('token renewed')
                 saveTokenInLocalDb(__authkey__);
             }
             return data.data;
