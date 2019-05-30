@@ -26,7 +26,15 @@ $("#menuListaRefresh").click(function () {
 });
 
 $("#menuLogout").click(function () {
+
+    const reqData = {
+        "method": "logout",
+        "token": __authkey__
+    };
+    let response = await getUrlData(reqData);
+
     __authkey__ = false;
+
     var dbData = {
         'id': "tk",
         'data': ""
