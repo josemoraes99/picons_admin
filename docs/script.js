@@ -173,17 +173,7 @@ const processLogin = async (usr, pwd) => {
         // salvar token!!
         // writeCookie('sessionId', __authkey__, 3); 
 
-        var dbData = {
-            'id': "tk",
-            'data': __authkey__
-        };
-        saveToIndexedDB('objectstoreName', dbData).then(function (response) {
-            // alert('data saved');
-            console.log('token saved')
-        }).catch(function (error) {
-            // alert(error.message);
-            console.log(error.message)
-        });
+        saveTokenInLocalDb(__authkey__);
 
         showPage();
     } else {
@@ -193,6 +183,21 @@ const processLogin = async (usr, pwd) => {
         }, 5000);
     }
 };
+
+function saveTokenInLocalDb(token) {
+    var dbData = {
+        'id': "tk",
+        'data': token
+    };
+    saveToIndexedDB('objectstoreName', dbData).then(function (response) {
+        // alert('data saved');
+        console.log('token saved')
+    }).catch(function (error) {
+        // alert(error.message);
+        console.log(error.message)
+    });
+
+}
 
 const loadChannelsList = async () => {
     channelList = await getListChannels();
@@ -211,6 +216,10 @@ const getUrlData = async (payload) => {
         let data = await response.json();
         // console.log(data);
         if (data.auth) {
+            if (__authkey__ != data.token) {
+                console.log('token renewed')
+                saveTokenInLocalDb(__authkey__);
+            }
             return data.data;
         } else {
             __authkey__ = false;
@@ -427,6 +436,7 @@ const removeChannel = async (chn) => {
 //---------------------------------------------------------------------------------------//
 
 const checkJWT = async () => {
+    // https://stackoverflow.com/questions/41586400/using-indexeddb-asynchronously
     // Load some data
     const id = "tk";
     try {
@@ -436,17 +446,6 @@ const checkJWT = async () => {
     } catch (error) {
         console.log(error.message);
     }
-
-
-    // await loadFromIndexedDB('objectstoreName', id).then(function (reponse) {
-    //     const dbData = reponse;
-    //     console.log('data loaded OK', dbData);
-    //     __authkey__ = dbData.data;
-    //     console.log("s1_");
-
-    // }).catch(function (error) {
-    //     console.log(error.message);
-    // });
 };
 
 const main = async () => {
