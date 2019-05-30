@@ -31,7 +31,7 @@ $("#menuLogout").click(function () {
         "method": "logout",
         "token": __authkey__
     };
-    let response = await getUrlData(reqData);
+    let response = getUrlData(reqData);
 
     __authkey__ = false;
 
