@@ -385,11 +385,12 @@ function processChannelList(chanArr) {
         selectItemCat.id = "seleCat." + itemChannel.channell;
         selectItemCat.value = itemChannel.categoria;
 
-        let notFile = false;
-        if (itemChannel.stat != "file") {
-            selectItemCat.disabled = true;
-            notFile = true;
-        }
+        itemChannel.stat != "file" ? selectItemCat.disabled = true : false;
+        // let notFile = false;
+        // if (itemChannel.stat != "file") {
+        //     selectItemCat.disabled = true;
+        //     notFile = true;
+        // }
         // $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
         const curRow = createElement({
             tagName: "div",
@@ -547,7 +548,7 @@ function afterDomChange() {
     $('.btnRemove').click(function () {
         const id = $(this).attr("id").replace("button.", "");
         console.log("remove", id);
-        // removeChannel(id);
+        removeChannel(id);
     });
 
     $('.btnRemoveRedir').click(function () {
