@@ -261,7 +261,8 @@ function processChannelList(chanArr) {
     let tmpDivPainelLista = document.createDocumentFragment();
 
     let listUndef = chanArr.filter(el => el.stat == "undef");
-    let listFile = chanArr.filter(el => el.stat != "undef");
+    let listNotUndef = chanArr.filter(el => el.stat != "undef");
+    let listFile = listNotUndef.filter(el => el.stat == "file");
 
     let divPainelNew = document.querySelector('.painelNew');
     let divPainelLista = document.querySelector('.painelLista');
@@ -273,17 +274,20 @@ function processChannelList(chanArr) {
     console.timeLog();
 
 
-    let divRow = document.createElement('div');
-    let divCol1 = document.createElement('div');
-    let divCol2 = document.createElement('div');
-    let divCol3 = document.createElement('div');
-    divRow.className = "row justify-content-center align-items-center";
-    divCol1.className = "colNameChannel col-2";
-    divCol2.className = "col-1";
-    divCol3.className = "col-2";
-    divRow.appendChild(divCol1);
-    divRow.appendChild(divCol2);
-    divRow.appendChild(divCol3);
+    // let divRow = document.createElement('div');
+    // let divCol1 = document.createElement('div');
+    // let divCol2 = document.createElement('div');
+    // let divCol3 = document.createElement('div');
+    // divRow.className = "row justify-content-center align-items-center";
+    // divCol1.className = "colNameChannel col-2";
+    // divCol2.className = "col-1";
+    // divCol3.className = "col-2";
+    // divRow.appendChild(divCol1);
+    // divRow.appendChild(divCol2);
+    // divRow.appendChild(divCol3);
+
+    const itemsSelectFiles = listFile.map(obj => obj.channell);
+    console.log(itemsSelectFiles);
 
     console.log("p2");
     console.timeLog();
@@ -298,6 +302,10 @@ function processChannelList(chanArr) {
             tagName: "div",
             className: "row justify-content-center align-items-center",
             childs: [
+                createElement({
+                    tagName: "div",
+                    className: "col-1"
+                }),
                 createElement({
                     tagName: "div",
                     className: "col-2",
