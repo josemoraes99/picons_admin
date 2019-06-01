@@ -302,9 +302,32 @@ function processChannelList(chanArr) {
                     tagName: "div",
                     className: "col-2",
                     text: itemChannel.channell
+                }),
+                createElement({
+                    tagName: "div",
+                    className: "col-2",
+                    childs: [
+                        createElement({
+                            tagName: "button",
+                            className: "btn btn-sm btn-danger btnRemove",
+                            attributes: {
+                                "id": "button." + itemChannel.channell,
+                                "type": "button"
+                            },
+                            text: "Remover"
+                        })
+                    ]
                 })
             ]
         });
+
+        // let removeBtn = document.createElement('button');
+        // removeBtn.type = "button";
+        // removeBtn.className = "btn btn-sm btn-danger btnRemove";
+        // removeBtn.id = "button." + itemChannel.channell;
+        // removeBtn.innerHTML = "Remover";
+
+
         //     tagName: "div",
         //     className: "my-class",
         //     text: "Blah blah",
