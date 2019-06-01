@@ -40,7 +40,6 @@ $("#menuLogout").click(function () {
         'data': ""
     };
     saveToIndexedDB('objectstoreName', dbData).then(function (response) {
-        // alert('data saved');
         // console.log('token saved')
     }).catch(function (error) {
         // alert(error.message);
@@ -176,7 +175,6 @@ const processLogin = async (usr, pwd) => {
         body: JSON.stringify(authJson)
     });
     let data = await response.json();
-    // console.log(data);
     if (data.auth) {
         __authkey__ = data.token;
 
