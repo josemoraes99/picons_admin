@@ -278,7 +278,7 @@ function processChannelList(chanArr) {
     let divCol2 = document.createElement('div');
     let divCol3 = document.createElement('div');
     divRow.className = "row justify-content-center align-items-center";
-    divCol1.className = "col-2";
+    divCol1.className = "colNameChannel col-2";
     divCol2.className = "col-1";
     divCol3.className = "col-2";
     divRow.appendChild(divCol1);
@@ -289,8 +289,11 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listUndef.forEach(function (itemChannel, index) {
-        let labelTxt = document.createTextNode(itemChannel.channell);
+        const labelTxt = document.createTextNode(itemChannel.channell);
         let curRow = divRow.cloneNode(true);
+
+        let divColNameChannel = curRow.querySelector('.colNameChannel');
+        divColNameChannel.appendChild(label1Txt);
         tmpDivPainelNew.appendChild(curRow);
         // if (itemChannel.stat == "file") {
         //     let opt1 = document.createElement("option");
