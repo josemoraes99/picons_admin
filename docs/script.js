@@ -305,75 +305,78 @@ function processChannelList(chanArr) {
     console.log("p2");
     console.timeLog();
 
+    /*
+        console.log("p3");
+        console.timeLog();
 
-    console.log("p3");
-    console.timeLog();
 
+        chanArr.forEach(function (itemChannel, index) {
+            let divRow = document.createElement('div');
+            let divCol1 = document.createElement('div');
+            let divCol2 = document.createElement('div');
+            let divCol3 = document.createElement('div');
+            divRow.className = "row justify-content-center align-items-center";
+            divCol1.className = "col-2";
+            divCol2.className = "col-1";
+            divCol3.className = "col-2";
+            let label1Txt = document.createTextNode(itemChannel.channell);
 
-    chanArr.forEach(function (itemChannel, index) {
-        let divRow = document.createElement('div');
-        let divCol1 = document.createElement('div');
-        let divCol2 = document.createElement('div');
-        let divCol3 = document.createElement('div');
-        divRow.className = "row justify-content-center align-items-center";
-        divCol1.className = "col-2";
-        divCol2.className = "col-1";
-        divCol3.className = "col-2";
-        let label1Txt = document.createTextNode(itemChannel.channell);
+            if (itemChannel.stat == "undef") {
+                divCol1.appendChild(label1Txt);
 
-        if (itemChannel.stat == "undef") {
-            divCol1.appendChild(label1Txt);
-
-            let newSelect = sel.cloneNode(true);
-            newSelect.className = "selectChannelWithFile";
-            newSelect.id = "sele." + itemChannel.channell;
-            divCol2.appendChild(newSelect);
-
-            let removeBtn = document.createElement('button');
-            removeBtn.type = "button";
-            removeBtn.className = "btn btn-sm btn-danger btnRemove";
-            removeBtn.id = "button." + itemChannel.channell;
-            removeBtn.innerHTML = "Remover";
-            divCol3.appendChild(removeBtn);
-
-            divRow.appendChild(divCol1);
-            divRow.appendChild(divCol2);
-            divRow.appendChild(divCol3);
-            // divPainelNew.appendChild(divRow);
-            tmpDivPainelNew.appendChild(divRow);
-        } else {
-
-            let newSelectCat = selCat.cloneNode(true);
-            newSelectCat.className = "selectCategorie";
-            newSelectCat.id = "seleCat." + itemChannel.channell;
-            divCol3.appendChild(newSelectCat);
-            newSelectCat.value = itemChannel.categoria;
-
-            if (itemChannel.stat != "file") {
                 let newSelect = sel.cloneNode(true);
                 newSelect.className = "selectChannelWithFile";
                 newSelect.id = "sele." + itemChannel.channell;
                 divCol2.appendChild(newSelect);
-                newSelect.value = itemChannel.redir;
 
-                newSelectCat.disabled = true;
+                let removeBtn = document.createElement('button');
+                removeBtn.type = "button";
+                removeBtn.className = "btn btn-sm btn-danger btnRemove";
+                removeBtn.id = "button." + itemChannel.channell;
+                removeBtn.innerHTML = "Remover";
+                divCol3.appendChild(removeBtn);
+
+                divRow.appendChild(divCol1);
+                divRow.appendChild(divCol2);
+                divRow.appendChild(divCol3);
+                // divPainelNew.appendChild(divRow);
+                tmpDivPainelNew.appendChild(divRow);
+            } else {
+
+                let newSelectCat = selCat.cloneNode(true);
+                newSelectCat.className = "selectCategorie";
+                newSelectCat.id = "seleCat." + itemChannel.channell;
+                divCol3.appendChild(newSelectCat);
+                newSelectCat.value = itemChannel.categoria;
+
+                if (itemChannel.stat != "file") {
+                    let newSelect = sel.cloneNode(true);
+                    newSelect.className = "selectChannelWithFile";
+                    newSelect.id = "sele." + itemChannel.channell;
+                    divCol2.appendChild(newSelect);
+                    newSelect.value = itemChannel.redir;
+
+                    newSelectCat.disabled = true;
+                }
+                divCol1.appendChild(label1Txt);
+
+                divRow.appendChild(divCol1);
+                divRow.appendChild(divCol2);
+                divRow.appendChild(divCol3);
+                // divPainelLista.appendChild(divRow);
+                tmpDivPainelLista.appendChild(divRow);
             }
-            divCol1.appendChild(label1Txt);
+        });
 
-            divRow.appendChild(divCol1);
-            divRow.appendChild(divCol2);
-            divRow.appendChild(divCol3);
-            // divPainelLista.appendChild(divRow);
-            tmpDivPainelLista.appendChild(divRow);
-        }
-    });
+        divPainelNew.appendChild(tmpDivPainelNew);
+        divPainelLista.appendChild(tmpDivPainelLista);
 
+        console.log("end");
+        console.timeLog();
+        afterDomChange();
+        */
     divPainelNew.appendChild(tmpDivPainelNew);
     divPainelLista.appendChild(tmpDivPainelLista);
-
-    console.log("end");
-    console.timeLog();
-    afterDomChange();
     console.timeEnd();
 }
 
