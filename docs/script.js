@@ -296,8 +296,14 @@ function processChannelList(chanArr) {
         // divColNameChannel.appendChild(labelTxt);
         const curRow = createElement({
             tagName: "div",
-            className: "my-class",
-            text: "Blah blah"
+            className: "row justify-content-center align-items-center",
+            childs: [
+                createElement({
+                    tagName: "div",
+                    className: "col-2",
+                    text: itemChannel.channell
+                })
+            ]
         });
         //     tagName: "div",
         //     className: "my-class",
