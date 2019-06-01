@@ -256,10 +256,11 @@ function processChannelList(chanArr) {
     console.time();
     console.log("start");
     const categorias = ['variedades', 'interno', 'adultos'];
-    let divPainelNew = document.getElementsByClassName('painelNew')[0];
-    let divPainelLista = document.getElementsByClassName('painelLista')[0];
-    var elem = document.querySelector('.painelNew');
-    console.log("p0", elem);
+    // let divPainelNew = document.getElementsByClassName('painelNew')[0];
+    // let divPainelLista = document.getElementsByClassName('painelLista')[0];
+    let divPainelNew = document.querySelector('.painelNew');
+    let divPainelLista = document.querySelector('.painelLista');
+    console.log("p0");
     console.timeLog();
     // while (divPainelNew.firstChild) {
     //     divPainelNew.removeChild(divPainelNew.firstChild);
