@@ -256,9 +256,6 @@ function processChannelList(chanArr) {
     console.time();
     const categorias = ['variedades', 'interno', 'adultos'];
 
-    // let tmpDivPainelNew = document.createDocumentFragment();
-    // let tmpDivPainelLista = document.createDocumentFragment();
-
     let listUndef = chanArr.filter(el => el.stat == "undef");
     let listNotUndef = chanArr.filter(el => el.stat != "undef");
     let listFile = listNotUndef.filter(el => el.stat == "file");
@@ -269,44 +266,9 @@ function processChannelList(chanArr) {
     divPainelNew.textContent = '';
     divPainelLista.textContent = '';
 
-
-
-    // let divRow = document.createElement('div');
-    // let divCol1 = document.createElement('div');
-    // let divCol2 = document.createElement('div');
-    // let divCol3 = document.createElement('div');
-    // divRow.className = "row justify-content-center align-items-center";
-    // divCol1.className = "colNameChannel col-2";
-    // divCol2.className = "col-1";
-    // divCol3.className = "col-2";
-    // divRow.appendChild(divCol1);
-    // divRow.appendChild(divCol2);
-    // divRow.appendChild(divCol3);
-
-    // const itemsSelectFiles = listFile.map(obj => obj.channell);
-    listFile.unshift({
+    listFile.unshift({ // adicionando primeiro item vazio para o select box funcionar
         channell: ""
     });
-    // let selectOptions = listFile.map(function (elem) {
-    //     return createElement({
-    //         tagName: "option",
-    //         text: elem.channell
-    //     })
-    // });
-
-    // selectOptions.unshift(createElement({
-    //     tagName: "option",
-    //     text: "",
-    //     attributes: {
-    //         "value": "1",
-    //     }
-    // }));
-
-    // const itemsSelectFiles = createElement({
-    //     tagName: "select",
-    //     className: "selectChannelWithFile",
-    //     childs: selectOptions
-    // });
 
     const itemsSelectFiles = createElement({
         tagName: "select",
@@ -346,7 +308,6 @@ function processChannelList(chanArr) {
                 createElement({
                     tagName: "div",
                     className: "col-1",
-                    // childs: []
                     childs: [selectItem]
                 }),
                 createElement({
@@ -366,18 +327,8 @@ function processChannelList(chanArr) {
                 })
             ]
         });
-        //     tagName: "div",
-        //     className: "my-class",
-        //     text: "Blah blah",
-        //     attributes: {
-        //         "id": "element id",
-        //         "data-truc": "value"
-        //     },
-        //     childs: [{
-        //         /* recursif call **/ }]
 
         divPainelNew.appendChild(curRow);
-        // tmpDivPainelNew.appendChild(curRow);
     });
 
     listNotUndef.forEach(function (itemChannel, index) {
@@ -386,12 +337,7 @@ function processChannelList(chanArr) {
         selectItemCat.value = itemChannel.categoria;
 
         itemChannel.stat != "file" ? selectItemCat.disabled = true : false;
-        // let notFile = false;
-        // if (itemChannel.stat != "file") {
-        //     selectItemCat.disabled = true;
-        //     notFile = true;
-        // }
-        // $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
+
         const curRow = createElement({
             tagName: "div",
             className: "row justify-content-center align-items-center",
@@ -415,7 +361,6 @@ function processChannelList(chanArr) {
                     tagName: "div",
                     className: "col-2",
                     childs: [
-                        // notFile && createElement({
                         itemChannel.stat != "file" && createElement({
                             tagName: "button",
                             className: "btn btn-sm btn-danger btnRemoveRedir",
@@ -547,7 +492,6 @@ function afterDomChange() {
 
     $('.btnRemove').click(function () {
         const id = $(this).attr("id").replace("button.", "");
-        console.log("remove", id);
         removeChannel(id);
     });
 
