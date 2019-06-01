@@ -285,6 +285,9 @@ function processChannelList(chanArr) {
     divRow.appendChild(divCol2);
     divRow.appendChild(divCol3);
 
+    console.log("p2");
+    console.timeLog();
+
     listUndef.forEach(function (itemChannel, index) {
         let labelTxt = document.createTextNode(itemChannel.channell);
         let curRow = divRow.cloneNode(true);
@@ -296,6 +299,10 @@ function processChannelList(chanArr) {
         // }
     });
 
+
+
+    console.log("p3");
+    console.timeLog();
 
 
     /*
@@ -323,12 +330,6 @@ function processChannelList(chanArr) {
             }
         });
 
-        console.log("p2");
-        console.timeLog();
-
-
-        console.log("p3");
-        console.timeLog();
 
         
             chanArr.forEach(function (itemChannel, index) {
