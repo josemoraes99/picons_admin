@@ -541,7 +541,6 @@ function afterDomChange() {
     $('.selectCategorie').change(function () {
         const id = $(this).attr("id").replace("seleCat.", "");
         const newval = $(this).val();
-        // console.log(id, "-->", newval, "<--");
         changeChannelCategorie(id, newval);
     });
 
@@ -554,7 +553,7 @@ function afterDomChange() {
     $('.btnRemoveRedir').click(function () {
         const id = $(this).attr("id").replace("button.", "");
         console.log("redir", id);
-        // removeChannel(id);
+        changeChannelStat(id, "1");
     });
 }
 
