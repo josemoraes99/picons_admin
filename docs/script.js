@@ -379,7 +379,7 @@ function processChannelList(chanArr) {
                 createElement({
                     tagName: "div",
                     className: "col-1",
-                    childs: []
+                    childs: [itemsSelectFiles]
                 }),
                 createElement({
                     tagName: "div",
