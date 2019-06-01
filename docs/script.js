@@ -364,8 +364,8 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listNotUndef.forEach(function (itemChannel, index) {
-        let selectItem = itemsSelectFiles.cloneNode(true);
-        selectItem.id = "sele." + itemChannel.channell;
+        // let selectItem = itemsSelectFiles.cloneNode(true);
+        // selectItem.id = "sele." + itemChannel.channell;
 
         const curRow = createElement({
             tagName: "div",
@@ -379,7 +379,7 @@ function processChannelList(chanArr) {
                 createElement({
                     tagName: "div",
                     className: "col-1",
-                    childs: [selectItem]
+                    childs: []
                 }),
                 createElement({
                     tagName: "div",
