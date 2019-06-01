@@ -289,12 +289,11 @@ function processChannelList(chanArr) {
     // const itemsSelectFiles = listFile.map(obj => obj.channell);
     const itemsSelectFiles = createElement({
         tagName: "select",
-        className: "col-1",
+        className: "selectChannelWithFile",
         childs: listFile.map(function (elem) {
             // console.log(elem);
             return createElement({
                 tagName: "option",
-                className: "col-1",
                 text: elem.channell
             })
         })
