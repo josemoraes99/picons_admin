@@ -391,9 +391,12 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listNotUndef.forEach(function (itemChannel, index) {
-        let selectItem = itemsSelectCategories.cloneNode(true);
-        selectItem.id = "seleCat." + itemChannel.channell;
-        selectItem.value = itemChannel.categoria;
+        let selectItemCat = itemsSelectCategories.cloneNode(true);
+        selectItemCat.id = "seleCat." + itemChannel.channell;
+        selectItemCat.value = itemChannel.categoria;
+        if (itemChannel.stat != "file") {
+            selectItemCat.disabled = true;
+        }
 
         const curRow = createElement({
             tagName: "div",
@@ -412,7 +415,7 @@ function processChannelList(chanArr) {
                 createElement({
                     tagName: "div",
                     className: "col-1",
-                    childs: [selectItem]
+                    childs: [selectItemCat]
                 }),
                 createElement({
                     tagName: "div",
