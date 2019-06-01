@@ -270,8 +270,8 @@ function processChannelList(chanArr) {
 
     // divPainelNew.textContent = '';
     // divPainelLista.textContent = '';
-    while (divPainelNew.firstChild) el.removeChild(el.firstChild);
-    while (divPainelLista.firstChild) el.removeChild(el.firstChild);
+    while (divPainelNew.firstChild) divPainelNew.removeChild(divPainelNew.firstChild);
+    while (divPainelLista.firstChild) divPainelLista.removeChild(divPainelLista.firstChild);
 
     let sel = document.createElement("select");
     let opt1 = document.createElement("option");
