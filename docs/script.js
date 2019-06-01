@@ -291,6 +291,7 @@ function processChannelList(chanArr) {
         tagName: "select",
         className: "col-1",
         childs: listFile.map(function (elem) {
+            console.log(elem);
             return createElement({
                 tagName: "option",
                 className: "col-1",
@@ -311,7 +312,7 @@ function processChannelList(chanArr) {
 
         // let divColNameChannel = curRow.querySelector('.colNameChannel');
         // divColNameChannel.appendChild(labelTxt);
-        let selectItem = itemsSelectFiles;
+        let selectItem = itemsSelectFiles.cloneNode(true);
         selectItem.id = "sele." + itemChannel.channell;
 
         const curRow = createElement({
