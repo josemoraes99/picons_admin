@@ -394,8 +394,11 @@ function processChannelList(chanArr) {
         let selectItemCat = itemsSelectCategories.cloneNode(true);
         selectItemCat.id = "seleCat." + itemChannel.channell;
         selectItemCat.value = itemChannel.categoria;
+
+        let notFile = false;
         if (itemChannel.stat != "file") {
             selectItemCat.disabled = true;
+            notFile = true;
         }
 
         const curRow = createElement({
@@ -421,14 +424,14 @@ function processChannelList(chanArr) {
                     tagName: "div",
                     className: "col-2",
                     childs: [
-                        createElement({
+                        notFile && createElement({
                             tagName: "button",
                             className: "btn btn-sm btn-danger btnRemove",
                             attributes: {
                                 "id": "button." + itemChannel.channell,
                                 "type": "button"
                             },
-                            text: "Remover"
+                            text: "Remover redir"
                         })
                     ]
                 })
