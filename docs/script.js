@@ -534,7 +534,7 @@ function afterDomChange() {
     $('.selectChannelWithFile').change(function () {
         const id = $(this).attr("id").replace("sele.", "");
         const newval = $(this).val();
-        console.log(id, newval);
+        console.log(id, "-->", newval, "<--");
         // changeChannelStat(id, newval);
     });
 
