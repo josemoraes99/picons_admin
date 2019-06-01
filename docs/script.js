@@ -256,6 +256,13 @@ function processChannelList(chanArr) {
     console.time();
     console.log("start");
     const categorias = ['variedades', 'interno', 'adultos'];
+
+    let tmpDivPainelNew = document.createDocumentFragment();
+    let tmpDivPainelLista = document.createDocumentFragment();
+
+    let listUndef = chanArr.filter(el => el.stat == "undef");
+    let listFile = chanArr.filter(el => el.stat != "undef");
+
     let divPainelNew = document.querySelector('.painelNew');
     let divPainelLista = document.querySelector('.painelLista');
 
@@ -264,6 +271,13 @@ function processChannelList(chanArr) {
 
     console.log("p1");
     console.timeLog();
+
+
+
+
+
+
+
 
     let sel = document.createElement("select");
     let opt1 = document.createElement("option");
@@ -291,14 +305,10 @@ function processChannelList(chanArr) {
     console.log("p2");
     console.timeLog();
 
-    let listUndef = chanArr.filter(el => el.stat == "undef");
-    let listFile = chanArr.filter(el => el.stat != "undef");
 
     console.log("p3");
     console.timeLog();
 
-    let tmpDivPainelNew = document.createDocumentFragment();
-    let tmpDivPainelLista = document.createDocumentFragment();
 
     chanArr.forEach(function (itemChannel, index) {
         let divRow = document.createElement('div');
