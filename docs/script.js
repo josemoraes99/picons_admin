@@ -312,11 +312,6 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listUndef.forEach(function (itemChannel, index) {
-        // const labelTxt = document.createTextNode(itemChannel.channell);
-        // let curRow = divRow.cloneNode(true);
-
-        // let divColNameChannel = curRow.querySelector('.colNameChannel');
-        // divColNameChannel.appendChild(labelTxt);
         let selectItem = itemsSelectFiles.cloneNode(true);
         selectItem.id = "sele." + itemChannel.channell;
 
@@ -352,13 +347,6 @@ function processChannelList(chanArr) {
             ]
         });
 
-        // let removeBtn = document.createElement('button');
-        // removeBtn.type = "button";
-        // removeBtn.className = "btn btn-sm btn-danger btnRemove";
-        // removeBtn.id = "button." + itemChannel.channell;
-        // removeBtn.innerHTML = "Remover";
-
-
         //     tagName: "div",
         //     className: "my-class",
         //     text: "Blah blah",
@@ -370,18 +358,49 @@ function processChannelList(chanArr) {
         //         /* recursif call **/ }]
 
         tmpDivPainelNew.appendChild(curRow);
-        // if (itemChannel.stat == "file") {
-        //     let opt1 = document.createElement("option");
-        //     opt1.text = itemChannel.channell;
-        //     sel.add(opt1, null);
-        // }
     });
-
-
 
     console.log("p3");
     console.timeLog();
 
+    listNotUndef.forEach(function (itemChannel, index) {
+        let selectItem = itemsSelectFiles.cloneNode(true);
+        selectItem.id = "sele." + itemChannel.channell;
+
+        const curRow = createElement({
+            tagName: "div",
+            className: "row justify-content-center align-items-center",
+            childs: [
+                createElement({
+                    tagName: "div",
+                    className: "col-2",
+                    text: itemChannel.channell
+                }),
+                createElement({
+                    tagName: "div",
+                    className: "col-1",
+                    childs: [selectItem]
+                }),
+                createElement({
+                    tagName: "div",
+                    className: "col-2",
+                    childs: [
+                        createElement({
+                            tagName: "button",
+                            className: "btn btn-sm btn-danger btnRemove",
+                            attributes: {
+                                "id": "button." + itemChannel.channell,
+                                "type": "button"
+                            },
+                            text: "Remover"
+                        })
+                    ]
+                })
+            ]
+        });
+
+        divPainelLista.appendChild(curRow);
+    });
 
     /*
 
