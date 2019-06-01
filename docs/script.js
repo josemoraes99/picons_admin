@@ -311,7 +311,12 @@ function processChannelList(chanArr) {
     const itemsSelectCategories = createElement({
         tagName: "select",
         className: "selectChannelWithFile",
-        childs: []
+        childs: categorias.map(function (elem) {
+            return createElement({
+                tagName: "option",
+                text: elem
+            })
+        })
     });
 
 
