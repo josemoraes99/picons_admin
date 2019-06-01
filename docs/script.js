@@ -290,14 +290,15 @@ function processChannelList(chanArr) {
     const itemsSelectFiles = createElement({
         tagName: "select",
         className: "selectChannelWithFile",
-        childs: listFile.map(function (elem) {
-            // console.log(elem);
-            return createElement({
-                tagName: "option",
-                text: elem.channell
+        childs: [
+            listFile.map(function (elem) {
+                // console.log(elem);
+                return createElement({
+                    tagName: "option",
+                    text: elem.channell
+                })
             })
-        })
-
+        ]
     });
 
     // console.log(itemsSelectFiles);
