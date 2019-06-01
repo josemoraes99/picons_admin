@@ -321,7 +321,7 @@ function processChannelList(chanArr) {
 
     const itemsSelectCategories = createElement({
         tagName: "select",
-        className: "selectChannelWithFile",
+        className: "selectCategorie",
         childs: categorias.map(function (elem) {
             return createElement({
                 tagName: "option",
@@ -535,15 +535,15 @@ function afterDomChange() {
     $('.selectChannelWithFile').change(function () {
         const id = $(this).attr("id").replace("sele.", "");
         const newval = $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
-        // console.log(id, "-->", newval, "<--");
         changeChannelStat(id, newval);
     });
 
-    // $('.selectCategorie').change(function () {
-    //     const id = $(this).attr("id").replace("seleCat.", "");
-    //     const newval = $(this).val();
-    //     changeChannelCategorie(id, newval);
-    // });
+    $('.selectCategorie').change(function () {
+        const id = $(this).attr("id").replace("seleCat.", "");
+        const newval = $(this).val();
+        console.log(id, "-->", newval, "<--");
+        // changeChannelCategorie(id, newval);
+    });
 
     // $('.btnRemove').click(function () {
     //     const id = $(this).attr("id").replace("button.", "");
