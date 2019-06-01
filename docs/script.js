@@ -307,6 +307,7 @@ function processChannelList(chanArr) {
     console.log("p3");
     console.timeLog();
 
+    let tmpDivPainelNew = document.createDocumentFragment();
 
     chanArr.forEach(function (itemChannel, index) {
         let divRow = document.createElement('div');
@@ -337,7 +338,8 @@ function processChannelList(chanArr) {
             divRow.appendChild(divCol1);
             divRow.appendChild(divCol2);
             divRow.appendChild(divCol3);
-            divPainelNew.appendChild(divRow);
+            // divPainelNew.appendChild(divRow);
+            tmpDivPainelNew.appendChild(divRow);
         } else {
 
             let newSelectCat = selCat.cloneNode(true);
@@ -363,6 +365,9 @@ function processChannelList(chanArr) {
             divPainelLista.appendChild(divRow);
         }
     });
+
+    divPainelNew.appendChild(tmpDivPainelNew);
+
     console.log("end");
     console.timeLog();
     afterDomChange();
