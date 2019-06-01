@@ -293,7 +293,7 @@ function processChannelList(chanArr) {
         let curRow = divRow.cloneNode(true);
 
         let divColNameChannel = curRow.querySelector('.colNameChannel');
-        divColNameChannel.appendChild(label1Txt);
+        divColNameChannel.appendChild(labelTxt);
         tmpDivPainelNew.appendChild(curRow);
         // if (itemChannel.stat == "file") {
         //     let opt1 = document.createElement("option");
