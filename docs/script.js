@@ -562,6 +562,9 @@ const h = (tag, attrs, ...children) => {
     }, flatten(children))
     return elm
 }
+const flatten = list => list.reduce(
+    (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
+);
 
 /*
 
