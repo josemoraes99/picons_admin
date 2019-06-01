@@ -313,8 +313,7 @@ function processChannelList(chanArr) {
 
     listUndef.forEach(function (itemChannel, index) {
         // let selectItem = itemsSelectFiles.cloneNode(true);
-        let selectItem = itemsSelectFiles;
-        selectItem.id = "sele." + itemChannel.channell;
+        // selectItem.id = "sele." + itemChannel.channell;
 
         const curRow = createElement({
             tagName: "div",
@@ -348,8 +347,6 @@ function processChannelList(chanArr) {
                 })
             ]
         });
-        let test = curRow.querySelector('.colRedirChannel');
-        test.appendChild(selectItem);
         //     tagName: "div",
         //     className: "my-class",
         //     text: "Blah blah",
@@ -363,6 +360,9 @@ function processChannelList(chanArr) {
         divPainelNew.appendChild(curRow);
         // tmpDivPainelNew.appendChild(curRow);
     });
+
+    let test = document.querySelector('.colRedirChannel');
+    test.appendChild(itemsSelectFiles);
 
     console.log("p3");
     console.timeLog();
