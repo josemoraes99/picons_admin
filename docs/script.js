@@ -308,6 +308,7 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     let tmpDivPainelNew = document.createDocumentFragment();
+    let tmpDivPainelLista = document.createDocumentFragment();
 
     chanArr.forEach(function (itemChannel, index) {
         let divRow = document.createElement('div');
@@ -362,11 +363,13 @@ function processChannelList(chanArr) {
             divRow.appendChild(divCol1);
             divRow.appendChild(divCol2);
             divRow.appendChild(divCol3);
-            divPainelLista.appendChild(divRow);
+            // divPainelLista.appendChild(divRow);
+            tmpDivPainelLista.appendChild(divRow);
         }
     });
 
     divPainelNew.appendChild(tmpDivPainelNew);
+    divPainelNew.appendChild(tmpDivPainelLista);
 
     console.log("end");
     console.timeLog();
