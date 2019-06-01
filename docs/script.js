@@ -381,6 +381,7 @@ function processChannelList(chanArr) {
 
     // console.timeLog();
     afterDomChange();
+    $(".myAlert-top").hide();
     // console.timeEnd();
 }
 
@@ -509,6 +510,7 @@ main();
 //---------------------------------------------------------------------------------------//
 
 function createElement(options) {
+    // https://gist.github.com/MoOx/8614711
     var el, a, i;
     if (!options.tagName) {
         el = document.createDocumentFragment();
