@@ -258,14 +258,14 @@ function processChannelList(chanArr) {
     const categorias = ['variedades', 'interno', 'adultos'];
     let divPainelNew = document.getElementsByClassName('painelNew')[0];
     let divPainelLista = document.getElementsByClassName('painelLista')[0];
-    // while (divPainelNew.firstChild) {
-    //     divPainelNew.removeChild(divPainelNew.firstChild);
-    // }
-    // while (divPainelLista.firstChild) {
-    //     divPainelLista.removeChild(divPainelLista.firstChild);
-    // }
-    divPainelNew.textContent = '';
-    divPainelLista.textContent = '';
+    while (divPainelNew.firstChild) {
+        divPainelNew.removeChild(divPainelNew.firstChild);
+    }
+    while (divPainelLista.firstChild) {
+        divPainelLista.removeChild(divPainelLista.firstChild);
+    }
+    // divPainelNew.textContent = '';
+    // divPainelLista.textContent = '';
 
     let sel = document.createElement("select");
     let opt1 = document.createElement("option");
