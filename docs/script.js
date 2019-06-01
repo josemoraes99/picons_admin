@@ -292,7 +292,6 @@ function processChannelList(chanArr) {
         className: "selectChannelWithFile",
         childs: [
             listFile.map(function (elem) {
-                // console.log(elem);
                 return createElement({
                     tagName: "option",
                     text: elem.channell
