@@ -287,20 +287,26 @@ function processChannelList(chanArr) {
     // divRow.appendChild(divCol3);
 
     // const itemsSelectFiles = listFile.map(obj => obj.channell);
+    let selectOptions = listFile.map(function (elem) {
+        return createElement({
+            tagName: "option",
+            text: elem.channell
+        })
+    });
+
+    selectOptions.unshift(createElement({
+        tagName: "option",
+        text: "",
+        attributes: {
+            "value": "1",
+        }
+    }));
+
     const itemsSelectFiles = createElement({
         tagName: "select",
         className: "selectChannelWithFile",
-        childs: [
-            listFile.map(function (elem) {
-                return createElement({
-                    tagName: "option",
-                    text: elem.channell
-                })
-            })
-        ]
+        childs: selectOptions
     });
-
-    // console.log(itemsSelectFiles);
 
     console.log("p2");
     console.timeLog();
