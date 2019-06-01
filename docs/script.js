@@ -553,7 +553,6 @@ function afterDomChange() {
 
     $('.btnRemoveRedir').click(function () {
         const id = $(this).attr("id").replace("button.", "");
-        console.log("redir", id);
         changeChannelStat(id, "1");
     });
 }
