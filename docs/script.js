@@ -294,7 +294,7 @@ function processChannelList(chanArr) {
 
         // let divColNameChannel = curRow.querySelector('.colNameChannel');
         // divColNameChannel.appendChild(labelTxt);
-        curRow = h('div', {
+        const curRow = h('div', {
             class: 'row justify-content-center align-items-center'
         }, [
             h('div', {
@@ -562,6 +562,7 @@ const h = (tag, attrs, ...children) => {
     }, flatten(children))
     return elm
 }
+
 const flatten = list => list.reduce(
     (a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []
 );
