@@ -406,6 +406,11 @@ function processChannelList(chanArr) {
                 }),
                 createElement({
                     tagName: "div",
+                    className: "col-2",
+                    text: itemChannel.redir
+                }),
+                createElement({
+                    tagName: "div",
                     className: "col-1",
                     childs: [selectItem]
                 }),
