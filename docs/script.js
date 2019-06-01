@@ -312,7 +312,8 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listUndef.forEach(function (itemChannel, index) {
-        let selectItem = itemsSelectFiles.cloneNode(true);
+        // let selectItem = itemsSelectFiles.cloneNode(true);
+        let selectItem = itemsSelectFiles;
         selectItem.id = "sele." + itemChannel.channell;
 
         const curRow = createElement({
