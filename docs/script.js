@@ -254,11 +254,10 @@ const getListChannels = async () => {
 
 function processChannelList(chanArr) {
     console.time();
-    console.log("start");
     const categorias = ['variedades', 'interno', 'adultos'];
 
-    let tmpDivPainelNew = document.createDocumentFragment();
-    let tmpDivPainelLista = document.createDocumentFragment();
+    // let tmpDivPainelNew = document.createDocumentFragment();
+    // let tmpDivPainelLista = document.createDocumentFragment();
 
     let listUndef = chanArr.filter(el => el.stat == "undef");
     let listNotUndef = chanArr.filter(el => el.stat != "undef");
@@ -270,8 +269,6 @@ function processChannelList(chanArr) {
     divPainelNew.textContent = '';
     divPainelLista.textContent = '';
 
-    console.log("p1");
-    console.timeLog();
 
 
     // let divRow = document.createElement('div');
@@ -333,10 +330,6 @@ function processChannelList(chanArr) {
         })
     });
 
-
-    console.log("p2");
-    console.timeLog();
-
     listUndef.forEach(function (itemChannel, index) {
         let selectItem = itemsSelectFiles.cloneNode(true);
         selectItem.id = "sele." + itemChannel.channell;
@@ -387,9 +380,6 @@ function processChannelList(chanArr) {
         // tmpDivPainelNew.appendChild(curRow);
     });
 
-    console.log("p3");
-    console.timeLog();
-
     listNotUndef.forEach(function (itemChannel, index) {
         let selectItemCat = itemsSelectCategories.cloneNode(true);
         selectItemCat.id = "seleCat." + itemChannel.channell;
@@ -439,6 +429,7 @@ function processChannelList(chanArr) {
         });
 
         divPainelLista.appendChild(curRow);
+
     });
 
     /*
@@ -533,8 +524,7 @@ function processChannelList(chanArr) {
             afterDomChange();
             */
     // divPainelNew.appendChild(tmpDivPainelNew);
-    divPainelLista.appendChild(tmpDivPainelLista);
-    console.log("end");
+    // divPainelLista.appendChild(tmpDivPainelLista);
     console.timeEnd();
 }
 
@@ -554,7 +544,6 @@ function afterDomChange() {
     $('.btnRemove').click(function () {
         const id = $(this).attr("id").replace("button.", "");
         console.log(id);
-        // const newval = $(this).val();
         removeChannel(id);
     });
 }
@@ -690,17 +679,17 @@ function createElement(options) {
         }
     }
     return el;
-}
-// document.body.appendChild(createElement({
-//     tagName: "div",
-//     className: "my-class",
-//     text: "Blah blah",
-//     attributes: {
-//         "id": "element id",
-//         "data-truc": "value"
-//     },
-//     childs: [{
-//         /* recursif call **/ }]
-// }))
+    // document.body.appendChild(createElement({
+    //     tagName: "div",
+    //     className: "my-class",
+    //     text: "Blah blah",
+    //     attributes: {
+    //         "id": "element id",
+    //         "data-truc": "value"
+    //     },
+    //     childs: [{
+    //         /* recursif call **/ }]
+    // }))
 
-// if you use without tagName you will get a document fragment
+    // if you use without tagName you will get a document fragment
+}
