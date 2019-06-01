@@ -253,6 +253,7 @@ const getListChannels = async () => {
 };
 
 function processChannelList(chanArr) {
+    console.time();
     console.log("start");
     const categorias = ['variedades', 'interno', 'adultos'];
     let divPainelNew = document.getElementsByClassName('painelNew')[0];
@@ -343,7 +344,9 @@ function processChannelList(chanArr) {
         }
     });
     console.log("end");
+    console.timeLog("end DOM");
     afterDomChange();
+    console.timeEnd();
 }
 
 function afterDomChange() {
