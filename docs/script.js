@@ -302,6 +302,12 @@ function processChannelList(chanArr) {
     console.log("p3");
     console.timeLog();
 
+    let listFile = chanArr.filter(el => el.stat != "undef");
+    console.log(listFile);
+
+    console.log("p4");
+    console.timeLog();
+
     chanArr.forEach(function (itemChannel, index) {
         let divRow = document.createElement('div');
         let divCol1 = document.createElement('div');
