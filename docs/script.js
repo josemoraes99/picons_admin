@@ -358,7 +358,8 @@ function processChannelList(chanArr) {
         //     childs: [{
         //         /* recursif call **/ }]
 
-        tmpDivPainelNew.appendChild(curRow);
+        divPainelNew.appendChild(curRow);
+        // tmpDivPainelNew.appendChild(curRow);
     });
 
     console.log("p3");
@@ -494,7 +495,7 @@ function processChannelList(chanArr) {
             console.timeLog();
             afterDomChange();
             */
-    divPainelNew.appendChild(tmpDivPainelNew);
+    // divPainelNew.appendChild(tmpDivPainelNew);
     divPainelLista.appendChild(tmpDivPainelLista);
     console.log("end");
     console.timeEnd();
