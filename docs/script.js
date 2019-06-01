@@ -308,6 +308,13 @@ function processChannelList(chanArr) {
         childs: selectOptions
     });
 
+    const itemsSelectCategories = createElement({
+        tagName: "select",
+        className: "selectChannelWithFile",
+        childs: []
+    });
+
+
     console.log("p2");
     console.timeLog();
 
@@ -365,8 +372,8 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listNotUndef.forEach(function (itemChannel, index) {
-        let selectItem = itemsSelectFiles.cloneNode(true);
-        selectItem.id = "sele." + itemChannel.channell;
+        let selectItem = itemsSelectCategories.cloneNode(true);
+        selectItem.id = "seleCat." + itemChannel.channell;
 
         const curRow = createElement({
             tagName: "div",
