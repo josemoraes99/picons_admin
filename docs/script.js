@@ -369,7 +369,7 @@ function processChannelList(chanArr) {
     });
 
     divPainelNew.appendChild(tmpDivPainelNew);
-    divPainelNew.appendChild(tmpDivPainelLista);
+    divPainelLista.appendChild(tmpDivPainelLista);
 
     console.log("end");
     console.timeLog();
