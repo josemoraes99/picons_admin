@@ -304,12 +304,12 @@ function processChannelList(chanArr) {
             childs: [
                 createElement({
                     tagName: "div",
-                    className: "col-1"
+                    className: "col-2",
+                    text: itemChannel.channell
                 }),
                 createElement({
                     tagName: "div",
-                    className: "col-2",
-                    text: itemChannel.channell
+                    className: "col-1"
                 }),
                 createElement({
                     tagName: "div",
