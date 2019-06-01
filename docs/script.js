@@ -327,8 +327,9 @@ function processChannelList(chanArr) {
                 }),
                 createElement({
                     tagName: "div",
-                    className: "col-1",
-                    childs: [selectItem]
+                    className: "col-1 colRedirChannel",
+                    // childs: []
+                    // childs: [selectItem]
                 }),
                 createElement({
                     tagName: "div",
@@ -347,7 +348,8 @@ function processChannelList(chanArr) {
                 })
             ]
         });
-
+        let test = curRow.querySelector('.colRedirChannel');
+        test.appendChild(selectItem);
         //     tagName: "div",
         //     className: "my-class",
         //     text: "Blah blah",
