@@ -273,7 +273,28 @@ function processChannelList(chanArr) {
     console.timeLog();
 
 
+    let divRow = document.createElement('div');
+    let divCol1 = document.createElement('div');
+    let divCol2 = document.createElement('div');
+    let divCol3 = document.createElement('div');
+    divRow.className = "row justify-content-center align-items-center";
+    divCol1.className = "col-2";
+    divCol2.className = "col-1";
+    divCol3.className = "col-2";
+    divRow.appendChild(divCol1);
+    divRow.appendChild(divCol2);
+    divRow.appendChild(divCol3);
 
+    listUndef.forEach(function (itemChannel, index) {
+        let labelTxt = document.createTextNode(itemChannel.channell);
+        let curRow = divRow.cloneNode(true);
+        tmpDivPainelNew.appendChild(curRow);
+        // if (itemChannel.stat == "file") {
+        //     let opt1 = document.createElement("option");
+        //     opt1.text = itemChannel.channell;
+        //     sel.add(opt1, null);
+        // }
+    });
 
 
 
@@ -371,12 +392,12 @@ function processChannelList(chanArr) {
             divPainelNew.appendChild(tmpDivPainelNew);
             divPainelLista.appendChild(tmpDivPainelLista);
 
-            console.log("end");
             console.timeLog();
             afterDomChange();
             */
     divPainelNew.appendChild(tmpDivPainelNew);
     divPainelLista.appendChild(tmpDivPainelLista);
+    console.log("end");
     console.timeEnd();
 }
 
