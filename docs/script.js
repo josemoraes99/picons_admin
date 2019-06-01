@@ -553,7 +553,7 @@ const h = (tag, attrs, ...children) => {
     if (children.length === 0) {
         return elm
     }
-    forEach(child => {
+    children.forEach(child => {
         if (child instanceof Node) {
             elm.appendChild(child)
         } else {
