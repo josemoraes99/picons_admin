@@ -417,7 +417,7 @@ function processChannelList(chanArr) {
                         // notFile && createElement({
                         itemChannel.stat != "file" && createElement({
                             tagName: "button",
-                            className: "btn btn-sm btn-danger btnRemove",
+                            className: "btn btn-sm btn-danger btnRemoveRedir",
                             attributes: {
                                 "id": "button." + itemChannel.channell,
                                 "type": "button"
@@ -545,11 +545,17 @@ function afterDomChange() {
         // changeChannelCategorie(id, newval);
     });
 
-    // $('.btnRemove').click(function () {
-    //     const id = $(this).attr("id").replace("button.", "");
-    //     console.log(id);
-    //     removeChannel(id);
-    // });
+    $('.btnRemove').click(function () {
+        const id = $(this).attr("id").replace("button.", "");
+        console.log("remove", id);
+        // removeChannel(id);
+    });
+
+    $('.btnRemoveRedir').click(function () {
+        const id = $(this).attr("id").replace("button.", "");
+        console.log("redir", id);
+        // removeChannel(id);
+    });
 }
 
 const refreshChannels = async () => {
