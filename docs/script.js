@@ -393,6 +393,7 @@ function processChannelList(chanArr) {
     listNotUndef.forEach(function (itemChannel, index) {
         let selectItem = itemsSelectCategories.cloneNode(true);
         selectItem.id = "seleCat." + itemChannel.channell;
+        selectItem.value = itemChannel.categoria;
 
         const curRow = createElement({
             tagName: "div",
