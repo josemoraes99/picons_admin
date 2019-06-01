@@ -299,7 +299,7 @@ function processChannelList(chanArr) {
         }, [
             h('div', {
                 class: 'col-2'
-            }, "teste")
+            }, ["teste"]),
         ])
         tmpDivPainelNew.appendChild(curRow);
         // if (itemChannel.stat == "file") {
