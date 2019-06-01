@@ -286,8 +286,21 @@ function processChannelList(chanArr) {
     // divRow.appendChild(divCol2);
     // divRow.appendChild(divCol3);
 
-    const itemsSelectFiles = listFile.map(obj => obj.channell);
-    console.log(itemsSelectFiles);
+    // const itemsSelectFiles = listFile.map(obj => obj.channell);
+    const itemsSelectFiles = createElement({
+        tagName: "select",
+        className: "col-1",
+        childs: listFile.map(function (elem) {
+            return createElement({
+                tagName: "option",
+                className: "col-1",
+                text: elem
+            })
+        })
+
+    });
+
+    // console.log(itemsSelectFiles);
 
     console.log("p2");
     console.timeLog();
@@ -298,6 +311,9 @@ function processChannelList(chanArr) {
 
         // let divColNameChannel = curRow.querySelector('.colNameChannel');
         // divColNameChannel.appendChild(labelTxt);
+        let selectItem = itemsSelectFiles;
+        selectItem.id = "sele." + itemChannel.channell;
+
         const curRow = createElement({
             tagName: "div",
             className: "row justify-content-center align-items-center",
@@ -309,7 +325,8 @@ function processChannelList(chanArr) {
                 }),
                 createElement({
                     tagName: "div",
-                    className: "col-1"
+                    className: "col-1",
+                    childs: selectItem
                 }),
                 createElement({
                     tagName: "div",
