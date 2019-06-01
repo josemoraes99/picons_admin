@@ -157,6 +157,7 @@ const showPage = async () => {
         $("#painelLogin").hide();
         $(".painelNew").show();
         $("#painelPrincipal").show();
+        myAlertTop("Carregando Lista");
         await loadChannelsList();
     } else {
         $(".loginerrormsg").hide();
@@ -178,8 +179,6 @@ const processLogin = async (usr, pwd) => {
     // console.log(data);
     if (data.auth) {
         __authkey__ = data.token;
-        // salvar token!!
-        // writeCookie('sessionId', __authkey__, 3); 
 
         saveTokenInLocalDb(__authkey__);
 
