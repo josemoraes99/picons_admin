@@ -258,6 +258,8 @@ function processChannelList(chanArr) {
     const categorias = ['variedades', 'interno', 'adultos'];
     let divPainelNew = document.getElementsByClassName('painelNew')[0];
     let divPainelLista = document.getElementsByClassName('painelLista')[0];
+    console.log("p0");
+    console.timeLog();
     // while (divPainelNew.firstChild) {
     //     divPainelNew.removeChild(divPainelNew.firstChild);
     // }
