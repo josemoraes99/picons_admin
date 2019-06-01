@@ -289,11 +289,18 @@ function processChannelList(chanArr) {
     console.timeLog();
 
     listUndef.forEach(function (itemChannel, index) {
-        const labelTxt = document.createTextNode(itemChannel.channell);
-        let curRow = divRow.cloneNode(true);
+        // const labelTxt = document.createTextNode(itemChannel.channell);
+        // let curRow = divRow.cloneNode(true);
 
-        let divColNameChannel = curRow.querySelector('.colNameChannel');
-        divColNameChannel.appendChild(labelTxt);
+        // let divColNameChannel = curRow.querySelector('.colNameChannel');
+        // divColNameChannel.appendChild(labelTxt);
+        curRow = h('div', {
+            class: 'row justify-content-center align-items-center'
+        }, [
+            h('div', {
+                class: 'col-2'
+            }, "teste")
+        ])
         tmpDivPainelNew.appendChild(curRow);
         // if (itemChannel.stat == "file") {
         //     let opt1 = document.createElement("option");
@@ -526,6 +533,35 @@ main();
 
 //---------------------------------------------------------------------------------------//
 
+const h = (tag, attrs, ...children) => {
+    const elm = document.createElement(tag)
+    for (let key in attrs) {
+        if (key.slice(0, 2) == 'on') {
+            const evtName = key.slice(2)
+            const cb = attrs[key]
+            if (cb == null) continue // we can use null or undefnied to suppress
+            elm.addEventListener(evtName, cb)
+        } else if (['disabled', 'autocomplete', 'selected', 'checked'].indexOf(key) > -1) {
+            if (attrs[key]) {
+                elm.setAttribute(key, key)
+            }
+        } else {
+            if (attrs[key] == null) continue // Don't set undefined or null attributes
+            elm.setAttribute(key, attrs[key])
+        }
+    }
+    if (children.length === 0) {
+        return elm
+    }
+    forEach(child => {
+        if (child instanceof Node) {
+            elm.appendChild(child)
+        } else {
+            elm.appendChild(document.createTextNode(child))
+        }
+    }, flatten(children))
+    return elm
+}
 
 /*
 
