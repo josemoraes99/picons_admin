@@ -271,6 +271,9 @@ function processChannelList(chanArr) {
     opt1.text = "";
     sel.add(opt1, null);
 
+    console.log("p1");
+    console.timeLog();
+
     let selCat = document.createElement("select");
     for (let i = 0; i < categorias.length; i++) {
         const element = categorias[i];
@@ -287,6 +290,9 @@ function processChannelList(chanArr) {
             sel.add(opt1, null);
         }
     });
+
+    console.log("p2");
+    console.timeLog();
 
     chanArr.forEach(function (itemChannel, index) {
         let divRow = document.createElement('div');
@@ -344,7 +350,7 @@ function processChannelList(chanArr) {
         }
     });
     console.log("end");
-    console.timeLog("end DOM");
+    console.timeLog();
     afterDomChange();
     console.timeEnd();
 }
