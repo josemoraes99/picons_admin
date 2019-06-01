@@ -541,8 +541,8 @@ function afterDomChange() {
     $('.selectCategorie').change(function () {
         const id = $(this).attr("id").replace("seleCat.", "");
         const newval = $(this).val();
-        console.log(id, "-->", newval, "<--");
-        // changeChannelCategorie(id, newval);
+        // console.log(id, "-->", newval, "<--");
+        changeChannelCategorie(id, newval);
     });
 
     $('.btnRemove').click(function () {
