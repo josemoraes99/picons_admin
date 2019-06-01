@@ -253,7 +253,7 @@ const getListChannels = async () => {
 };
 
 function processChannelList(chanArr) {
-    console.time();
+    // console.time();
     const categorias = ['variedades', 'interno', 'adultos'];
 
     let listUndef = chanArr.filter(el => el.stat == "undef");
@@ -381,7 +381,7 @@ function processChannelList(chanArr) {
 
     // console.timeLog();
     afterDomChange();
-    console.timeEnd();
+    // console.timeEnd();
 }
 
 function afterDomChange() {
