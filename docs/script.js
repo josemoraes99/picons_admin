@@ -525,6 +525,8 @@ function processChannelList(chanArr) {
             */
     // divPainelNew.appendChild(tmpDivPainelNew);
     // divPainelLista.appendChild(tmpDivPainelLista);
+    console.timeLog();
+    afterDomChange();
     console.timeEnd();
 }
 
@@ -532,20 +534,21 @@ function afterDomChange() {
     $('.selectChannelWithFile').change(function () {
         const id = $(this).attr("id").replace("sele.", "");
         const newval = $(this).val();
-        changeChannelStat(id, newval);
+        console.log(id, newval);
+        // changeChannelStat(id, newval);
     });
 
-    $('.selectCategorie').change(function () {
-        const id = $(this).attr("id").replace("seleCat.", "");
-        const newval = $(this).val();
-        changeChannelCategorie(id, newval);
-    });
+    // $('.selectCategorie').change(function () {
+    //     const id = $(this).attr("id").replace("seleCat.", "");
+    //     const newval = $(this).val();
+    //     changeChannelCategorie(id, newval);
+    // });
 
-    $('.btnRemove').click(function () {
-        const id = $(this).attr("id").replace("button.", "");
-        console.log(id);
-        removeChannel(id);
-    });
+    // $('.btnRemove').click(function () {
+    //     const id = $(this).attr("id").replace("button.", "");
+    //     console.log(id);
+    //     removeChannel(id);
+    // });
 }
 
 const refreshChannels = async () => {
