@@ -533,7 +533,9 @@ function processChannelList(chanArr) {
 function afterDomChange() {
     $('.selectChannelWithFile').change(function () {
         const id = $(this).attr("id").replace("sele.", "");
-        const newval = $(this).val();
+        // let newval = $(this).val();
+        // person.driver = person.age >=16 ? 'Yes' : 'No';
+        const newval = $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
         console.log(id, "-->", newval, "<--");
         // changeChannelStat(id, newval);
     });
