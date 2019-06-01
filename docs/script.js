@@ -291,11 +291,11 @@ function processChannelList(chanArr) {
         tagName: "select",
         className: "col-1",
         childs: listFile.map(function (elem) {
-            console.log(elem);
+            // console.log(elem);
             return createElement({
                 tagName: "option",
                 className: "col-1",
-                text: elem
+                text: elem.channell
             })
         })
 
@@ -327,7 +327,7 @@ function processChannelList(chanArr) {
                 createElement({
                     tagName: "div",
                     className: "col-1",
-                    childs: selectItem
+                    childs: [selectItem]
                 }),
                 createElement({
                     tagName: "div",
