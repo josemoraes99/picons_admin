@@ -258,6 +258,7 @@ function processChannelList(chanArr) {
     const categorias = ['variedades', 'interno', 'adultos'];
     let divPainelNew = document.getElementsByClassName('painelNew')[0];
     let divPainelLista = document.getElementsByClassName('painelLista')[0];
+    // var elem = document.querySelector('#some-element');
     console.log("p0");
     console.timeLog();
     // while (divPainelNew.firstChild) {
@@ -266,8 +267,11 @@ function processChannelList(chanArr) {
     // while (divPainelLista.firstChild) {
     //     divPainelLista.removeChild(divPainelLista.firstChild);
     // }
-    divPainelNew.textContent = '';
-    divPainelLista.textContent = '';
+
+    // divPainelNew.textContent = '';
+    // divPainelLista.textContent = '';
+    while (divPainelNew.firstChild) el.removeChild(el.firstChild);
+    while (divPainelLista.firstChild) el.removeChild(el.firstChild);
 
     let sel = document.createElement("select");
     let opt1 = document.createElement("option");
