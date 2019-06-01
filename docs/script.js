@@ -390,7 +390,7 @@ function processChannelList(chanArr) {
             selectItemCat.disabled = true;
             notFile = true;
         }
-
+        // $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
         const curRow = createElement({
             tagName: "div",
             className: "row justify-content-center align-items-center",
@@ -414,7 +414,8 @@ function processChannelList(chanArr) {
                     tagName: "div",
                     className: "col-2",
                     childs: [
-                        notFile && createElement({
+                        // notFile && createElement({
+                        itemChannel.stat != "file" && createElement({
                             tagName: "button",
                             className: "btn btn-sm btn-danger btnRemove",
                             attributes: {
@@ -533,11 +534,9 @@ function processChannelList(chanArr) {
 function afterDomChange() {
     $('.selectChannelWithFile').change(function () {
         const id = $(this).attr("id").replace("sele.", "");
-        // let newval = $(this).val();
-        // person.driver = person.age >=16 ? 'Yes' : 'No';
         const newval = $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
-        console.log(id, "-->", newval, "<--");
-        // changeChannelStat(id, newval);
+        // console.log(id, "-->", newval, "<--");
+        changeChannelStat(id, newval);
     });
 
     // $('.selectCategorie').change(function () {
