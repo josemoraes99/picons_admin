@@ -152,16 +152,20 @@ function loadFromIndexedDB(storeName, id) {
 
 
 const showPage = async () => {
+    const pLogin = document.querySelector('#painelLogin');
+    const pNew = document.querySelector('.painelNew');
+    const pPrincipal = document.querySelector('#painelPrincipal');
+    const pErrorMsg = document.querySelector('.loginerrormsg');
     if (__authkey__) {
-        $("#painelLogin").hide();
-        $(".painelNew").show();
-        $("#painelPrincipal").show();
+        pLogin.style.display = 'none'; // hide
+        pNew.style.display = 'block'; // show
+        pPrincipal.style.display = 'block'; // show
         myAlertTop("Carregando Lista");
         await loadChannelsList();
     } else {
-        $(".loginerrormsg").hide();
-        $("#painelPrincipal").hide();
-        $("#painelLogin").show();
+        pErrorMsg.style.display = 'none'; // hide
+        pPrincipal.style.display = 'none'; // hide
+        pLogin.style.display = 'block'; // show
     }
 };
 
