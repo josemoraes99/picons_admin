@@ -8,30 +8,39 @@ let channelList;
 
 //---------------------------------------------------------------------------------------//
 
-$("#menuPiconShow").click(function () {
-    // console.log("painelNew");
-    $(".painelPicons").hide();
-    $(".painelNew").show();
+const loginButton = document.querySelector('.loginBtn');
+loginButton.addEventListener('click', e => {
+    const usr = document.getElementById("inputUsername").value.trim();
+    const pwd = document.getElementById("inputPassword").value.trim();
+    processLogin(usr, pwd);
+    document.getElementById("inputUsername").value = '';
+    document.getElementById("inputPassword").value = '';
 });
 
-$("#menuListaShow").click(function () {
-    // console.log("painelLista");
-    $(".painelPicons").hide();
-    $(".painelLista").show();
+const menuPiconShow = document.querySelector('#menuPiconShow');
+menuPiconShow.addEventListener('click', e => {
+    document.querySelector('.painelLista').style.display = 'none'; // hide
+    document.querySelector('.painelNew').style.display = 'block'; // show
 });
 
-$("#menuListaRefresh").click(function () {
-    // console.log("refresh");
+const menuListaShow = document.querySelector('#menuListaShow');
+menuListaShow.addEventListener('click', e => {
+    document.querySelector('.painelNew').style.display = 'none'; // hide
+    document.querySelector('.painelLista').style.display = 'block'; // show
+});
+
+const menuListaRefresh = document.querySelector('#menuListaRefresh');
+menuListaRefresh.addEventListener('click', e => {
     refreshChannels();
 });
 
-$("#menuLogout").click(function () {
-
+const menuLogout = document.querySelector('#menuLogout');
+menuLogout.addEventListener('click', e => {
     const reqData = {
         "method": "logout",
         "token": __authkey__
     };
-    let response = getUrlData(reqData);
+    getUrlData(reqData);
 
     __authkey__ = false;
 
@@ -48,17 +57,9 @@ $("#menuLogout").click(function () {
     showPage();
 });
 
-$(".loginBtn").click(function () {
-    const usr = document.getElementById("inputUsername").value.trim();
-    const pwd = document.getElementById("inputPassword").value.trim();
-    processLogin(usr, pwd);
-    document.getElementById("inputUsername").value = '';
-    document.getElementById("inputPassword").value = '';
-});
-
 //---------------------------------------------------------------------------------------//
 
-function dynamicSort(property) {
+const dynamicSort = property => {
     let sortOrder = 1;
     if (property[0] === "-") {
         sortOrder = -1;
@@ -70,13 +71,15 @@ function dynamicSort(property) {
     };
 }
 
-function myAlertTop(msg) {
-    document.getElementById("alertMsg").innerHTML = msg;
-    $(".myAlert-top").show();
+
+const myAlertTop = msg => {
+    document.querySelector('#alertMsg').innerHTML = msg;
+    document.querySelector('.myAlert-top').style.display = 'block'; // show
     setTimeout(function () {
-        $(".myAlert-top").hide();
+        document.querySelector('.myAlert-top').style.display = 'none'; // hide
     }, 2000);
 }
+
 
 function saveToIndexedDB(storeName, object) {
     return new Promise(
@@ -112,6 +115,7 @@ function saveToIndexedDB(storeName, object) {
         }
     );
 }
+
 
 function loadFromIndexedDB(storeName, id) {
     return new Promise(
@@ -186,15 +190,17 @@ const processLogin = async (usr, pwd) => {
 
         showPage();
     } else {
-        $(".loginerrormsg").show();
+        const logErrorMsg = document.querySelector('.loginerrormsg');
+        logErrorMsg.style.display = 'block'; // show
         setTimeout(function () {
-            $(".loginerrormsg").hide();
+            logErrorMsg.style.display = 'none'; // hide
         }, 5000);
     }
 };
 
-function saveTokenInLocalDb(token) {
-    var dbData = {
+// function saveTokenInLocalDb(token) {
+const saveTokenInLocalDb = token => {
+    const dbData = {
         'id': "tk",
         'data': token
     };
@@ -253,7 +259,8 @@ const getListChannels = async () => {
     }
 };
 
-function processChannelList(chanArr) {
+// function processChannelList(chanArr) {
+const processChannelList = chanArr => {
     // console.time();
     const categorias = ['variedades', 'interno', 'adultos'];
 
@@ -382,33 +389,52 @@ function processChannelList(chanArr) {
 
     // console.timeLog();
     afterDomChange();
-    $(".myAlert-top").hide();
+    document.querySelector('.myAlert-top').style.display = 'none'; // hide
+
     // console.timeEnd();
 }
 
-function afterDomChange() {
-    $('.selectChannelWithFile').change(function () {
-        const id = $(this).attr("id").replace("sele.", "");
-        const newval = $(this).val() != "" ? $(this).val() : "1"; // alterar para 1 se o val for vazio
-        changeChannelStat(id, newval);
+const afterDomChange = () => {
+    const selectChannelWithFile = document.querySelectorAll('.selectChannelWithFile');
+    selectChannelWithFile.forEach(sel => {
+        sel.addEventListener('change', e => {
+            const id = e.target.id.replace("sele.", "");
+            const newval = e.target.value;
+            // console.log(id, newval);
+            changeChannelStat(id, newval);
+        });
     });
 
-    $('.selectCategorie').change(function () {
-        const id = $(this).attr("id").replace("seleCat.", "");
-        const newval = $(this).val();
-        changeChannelCategorie(id, newval);
+    const selectCategorie = document.querySelectorAll('.selectCategorie');
+    selectCategorie.forEach(sel => {
+        sel.addEventListener('change', e => {
+            const id = e.target.id.replace("seleCat.", "");
+            const newval = e.target.value;
+            // console.log(id, newval);
+            changeChannelCategorie(id, newval);
+        });
     });
 
-    $('.btnRemove').click(function () {
-        const id = $(this).attr("id").replace("button.", "");
-        removeChannel(id);
+    const btnRemove = document.querySelectorAll('.btnRemove');
+    btnRemove.forEach(btn => {
+        btn.addEventListener('click', e => {
+            const id = e.target.id.replace("button.", "");
+            // console.log("yo", id);
+            removeChannel(id);
+        });
     });
 
-    $('.btnRemoveRedir').click(function () {
-        const id = $(this).attr("id").replace("button.", "");
-        changeChannelStat(id, "1");
+
+    const btnRemoveRedir = document.querySelectorAll('.btnRemoveRedir');
+    btnRemoveRedir.forEach(btn => {
+        btn.addEventListener('click', e => {
+            const id = e.target.id.replace("button.", "");
+            // console.log(id);
+            changeChannelStat(id, "1");
+        });
     });
 }
+
 
 const refreshChannels = async () => {
     console.log("refresh list");
@@ -422,6 +448,7 @@ const refreshChannels = async () => {
         await loadChannelsList();
     }
 };
+
 
 const changeChannelCategorie = async (pic, newCat) => {
     console.log("change channel", pic, newCat);
@@ -437,6 +464,7 @@ const changeChannelCategorie = async (pic, newCat) => {
         await loadChannelsList();
     }
 };
+
 
 const changeChannelStat = async (pic, redir) => {
     console.log("change channel", pic, redir);
@@ -463,6 +491,7 @@ const changeChannelStat = async (pic, redir) => {
         processChannelList(channelList);
     }
 };
+
 
 const removeChannel = async (chn) => {
     console.log("change channel", chn);
