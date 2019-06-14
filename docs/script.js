@@ -174,6 +174,7 @@ const showPage = async () => {
     }
 };
 
+
 const processLogin = async (usr, pwd) => {
     const authJson = {
         "username": usr,
@@ -199,6 +200,7 @@ const processLogin = async (usr, pwd) => {
     }
 };
 
+
 // function saveTokenInLocalDb(token) {
 const saveTokenInLocalDb = token => {
     const dbData = {
@@ -212,8 +214,8 @@ const saveTokenInLocalDb = token => {
         // alert(error.message);
         console.log(error.message)
     });
-
 }
+
 
 const loadChannelsList = async () => {
     channelList = await getListChannels();
@@ -222,6 +224,7 @@ const loadChannelsList = async () => {
         processChannelList(channelList);
     }
 };
+
 
 const getUrlData = async (payload) => {
     if (__authkey__) {
@@ -245,6 +248,7 @@ const getUrlData = async (payload) => {
     }
 }
 
+
 const getListChannels = async () => {
     console.log("load list");
     const reqData = {
@@ -259,6 +263,7 @@ const getListChannels = async () => {
         return false;
     }
 };
+
 
 // function processChannelList(chanArr) {
 const processChannelList = chanArr => {
@@ -394,6 +399,7 @@ const processChannelList = chanArr => {
 
     // console.timeEnd();
 }
+
 
 const afterDomChange = () => {
     const selectChannelWithFile = document.querySelectorAll('.selectChannelWithFile');
