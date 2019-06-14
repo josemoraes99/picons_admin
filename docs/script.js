@@ -160,10 +160,11 @@ const showPage = async () => {
     const pNew = document.querySelector('.painelNew');
     const pPrincipal = document.querySelector('#painelPrincipal');
     const pErrorMsg = document.querySelector('.loginerrormsg');
+    console.log(__authkey__);
     if (__authkey__) {
         pLogin.style.display = 'none'; // hide
-        pNew.style.display = 'block'; // show
         pPrincipal.style.display = 'block'; // show
+        pNew.style.display = 'block'; // show
         myAlertTop("Carregando Lista");
         await loadChannelsList();
     } else {
@@ -530,6 +531,7 @@ const checkJWT = async () => {
 
 const main = async () => {
     await checkJWT();
+    console.log(__authkey__);
     showPage();
 };
 
