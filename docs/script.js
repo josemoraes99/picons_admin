@@ -3,7 +3,6 @@
 
 // version 0.5
 
-let __authkey__ = false;
 let channelList;
 
 //---------------------------------------------------------------------------------------//
@@ -38,11 +37,11 @@ const menuLogout = document.querySelector('#menuLogout');
 menuLogout.addEventListener('click', e => {
     const reqData = {
         "method": "logout",
-        "token": __authkey__
+        "token": key_mgmt.getKey()
     };
     getUrlData(reqData);
 
-    __authkey__ = false;
+    key_mgmt.setKey(false);
 
     var dbData = {
         'id': "tk",
@@ -160,8 +159,7 @@ const showPage = async () => {
     const pNew = document.querySelector('.painelNew');
     const pPrincipal = document.querySelector('#painelPrincipal');
     const pErrorMsg = document.querySelector('.loginerrormsg');
-    console.log(__authkey__);
-    if (__authkey__) {
+    if (key_mgmt.getKey()) {
         pLogin.style.display = 'none'; // hide
         pPrincipal.style.display = 'block'; // show
         pNew.style.display = 'block'; // show
@@ -186,9 +184,9 @@ const processLogin = async (usr, pwd) => {
     });
     let data = await response.json();
     if (data.auth) {
-        __authkey__ = data.token;
+        key_mgmt.setKey(data.token);
 
-        saveTokenInLocalDb(__authkey__);
+        saveTokenInLocalDb(data.token);
 
         showPage();
     } else {
@@ -227,7 +225,8 @@ const loadChannelsList = async () => {
 
 
 const getUrlData = async (payload) => {
-    if (__authkey__) {
+    let authKey = key_mgmt.getKey();
+    if (authKey) {
         const response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod', {
             method: 'post',
             body: JSON.stringify(payload)
@@ -235,13 +234,13 @@ const getUrlData = async (payload) => {
         let data = await response.json();
         // console.log(data);
         if (data.auth) {
-            if (__authkey__ != data.token) {
-                __authkey__ = data.token;
-                saveTokenInLocalDb(__authkey__);
+            if (authKey != data.token) {
+                key_mgmt.setKey(data.token);
+                saveTokenInLocalDb(data.token);
             }
             return data.data;
         } else {
-            __authkey__ = false;
+            key_mgmt.setKey(false);
             showPage();
             return false;
         }
@@ -253,7 +252,7 @@ const getListChannels = async () => {
     console.log("load list");
     const reqData = {
         "method": "list",
-        "token": __authkey__
+        "token": key_mgmt.getKey()
     };
     let response = await getUrlData(reqData);
     if (response) {
@@ -412,8 +411,9 @@ const afterDomChange = () => {
         });
     });
 
-    const selectCategorie = document.querySelectorAll('.selectCategorie');
-    selectCategorie.forEach(sel => {
+    // nodelist to array
+    const selectCategorie = Array.from(document.querySelectorAll('.selectCategorie'));
+    selectCategorie.map(sel => {
         sel.addEventListener('change', e => {
             const id = e.target.id.replace("seleCat.", "");
             const newval = e.target.value;
@@ -447,7 +447,7 @@ const refreshChannels = async () => {
     console.log("refresh list");
     const reqData = {
         "method": "refresh",
-        "token": __authkey__
+        "token": key_mgmt.getKey()
     };
     let response = await getUrlData(reqData);
     if (response) {
@@ -463,7 +463,7 @@ const changeChannelCategorie = async (pic, newCat) => {
         "method": "changeCategorie",
         "channel": pic,
         "newCategorie": newCat,
-        "token": __authkey__
+        "token": key_mgmt.getKey()
     };
     let response = await getUrlData(reqData);
     if (response) {
@@ -479,7 +479,7 @@ const changeChannelStat = async (pic, redir) => {
         "method": "changeChannel",
         "channel": pic,
         "redir": redir,
-        "token": __authkey__
+        "token": key_mgmt.getKey()
     };
     let response = await getUrlData(reqData);
     if (response) {
@@ -505,7 +505,7 @@ const removeChannel = async (chn) => {
     const reqData = {
         "method": "remove",
         "channel": chn,
-        "token": __authkey__
+        "token": key_mgmt.getKey()
     };
     let response = await getUrlData(reqData);
     if (response) {
@@ -522,22 +522,36 @@ const removeChannel = async (chn) => {
 
 //---------------------------------------------------------------------------------------//
 
-const checkJWT = async () => {
+const checkJWT = async (cb) => {
     // https://stackoverflow.com/questions/41586400/using-indexeddb-asynchronously
     // Load some data
     const id = "tk";
     try {
         const dbD = await loadFromIndexedDB('objectstoreName', id);
         // console.log('data loaded OK', dbD);
-        __authkey__ = dbD.data;
+        cb(dbD.data);
     } catch (error) {
         console.log(error.message);
     }
 };
 
+
+const key_mgmt = (() => {
+    let keyAuth = false;
+    return {
+        getKey: () => {
+            return keyAuth;
+        },
+        setKey: (key) => {
+            keyAuth = key;
+        }
+    }
+})();
+
+
 const main = async () => {
-    await checkJWT();
-    console.log(__authkey__);
+    await checkJWT(key_mgmt.setKey);
+
     showPage();
 };
 
