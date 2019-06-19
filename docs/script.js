@@ -4,36 +4,106 @@
 // version 0.5
 
 let channelList;
+let filterList;
 
 //---------------------------------------------------------------------------------------//
 
-const loginButton = document.querySelector('.loginBtn');
-loginButton.addEventListener('click', e => {
+const formLoginButton = document.querySelector('.form-signin');
+formLoginButton.addEventListener('submit', e => {
+    e.preventDefault();
     const usr = document.getElementById("inputUsername").value.trim();
     const pwd = document.getElementById("inputPassword").value.trim();
     processLogin(usr, pwd);
-    document.getElementById("inputUsername").value = '';
-    document.getElementById("inputPassword").value = '';
+    formLoginButton.reset();
+    document.getElementById("inputUsername").focus();
 });
 
-const menuPiconShow = document.querySelector('#menuPiconShow');
-menuPiconShow.addEventListener('click', e => {
-    document.querySelector('.painelLista').style.display = 'none'; // hide
-    document.querySelector('.painelNew').style.display = 'block'; // show
+const menuNewPiconShow = document.querySelector('.newPiconsMenu');
+menuNewPiconShow.addEventListener('click', e => {
+    document.querySelectorAll('.nav-item').forEach(menu => {
+        menu.classList.remove('active');
+    });
+    const painelTabs = document.querySelectorAll('.tabsPanel');
+    painelTabs.forEach(painel => {
+        painel.classList.add('d-none'); // hide
+    })
+    document.querySelector('.newPiconsMenu').parentElement.classList.add('active'); // show
+    document.querySelector('.painelNewPicons').classList.remove('d-none'); // show
 });
 
-const menuListaShow = document.querySelector('#menuListaShow');
-menuListaShow.addEventListener('click', e => {
-    document.querySelector('.painelNew').style.display = 'none'; // hide
-    document.querySelector('.painelLista').style.display = 'block'; // show
+const menuListaCompleta = document.querySelector('.listaCompletaMenu');
+menuListaCompleta.addEventListener('click', e => {
+    document.querySelectorAll('.nav-item').forEach(menu => {
+        menu.classList.remove('active');
+    });
+    const painelTabs = document.querySelectorAll('.tabsPanel');
+    painelTabs.forEach(painel => {
+        painel.classList.add('d-none'); // hide
+    })
+    document.querySelector('.listaCompletaMenu').parentElement.classList.add('active'); // show
+    document.querySelector('.painelListaCompleta').classList.remove('d-none'); // show
 });
 
-const menuListaRefresh = document.querySelector('#menuListaRefresh');
+const menuUtil = document.querySelector('.utilMenu');
+menuUtil.addEventListener('click', e => {
+    document.querySelectorAll('.nav-item').forEach(menu => {
+        menu.classList.remove('active');
+    });
+    const painelTabs = document.querySelectorAll('.tabsPanel');
+    painelTabs.forEach(painel => {
+        painel.classList.add('d-none'); // hide
+    })
+    document.querySelector('.utilMenu').parentElement.classList.add('active'); // show
+    document.querySelector('.util').classList.remove('d-none'); // show
+});
+
+const menuListaRefresh = document.querySelector('.refreshMenu');
 menuListaRefresh.addEventListener('click', e => {
     refreshChannels();
 });
 
-const menuLogout = document.querySelector('#menuLogout');
+const addCanalRequerido = document.querySelector('.addCanalRequerido');
+addCanalRequerido.addEventListener('submit', e => {
+    e.preventDefault();
+    const canal = addCanalRequerido.add.value.trim();
+    addCanalRequerido.reset();
+    renderAddCanalRequerido(canal);
+    enviarCanalRequerido(canal);
+});
+
+
+const addCanalIptv = document.querySelector('.addCanalIptv');
+addCanalIptv.addEventListener('submit', e => {
+    e.preventDefault();
+    const canal = addCanalIptv.add.value.trim();
+    addCanalIptv.reset();
+    renderAddCanalIPTV(canal);
+    enviarCanalIptv(canal);
+});
+
+
+document.querySelector('.listCanaisRequeridos').addEventListener('click', e => {
+    if (e.target.classList.contains('delete')) {
+        e.target.parentElement.remove();
+        removerCanalRequerido(e.target.parentElement.querySelector('span').innerText);
+    }
+});
+
+
+document.querySelector('.listCanaisIPTV').addEventListener('click', e => {
+    if (e.target.classList.contains('delete')) {
+        e.target.parentElement.remove();
+        removerCanalIptv(e.target.parentElement.querySelector('span').innerText);
+    }
+});
+
+
+document.querySelector('.btnRemoveAll').addEventListener('click', e => {
+    removeAllUndef();
+});
+
+
+const menuLogout = document.querySelector('.menuLogout');
 menuLogout.addEventListener('click', e => {
     const reqData = {
         "method": "logout",
@@ -71,14 +141,18 @@ const dynamicSort = property => {
 }
 
 
-const myAlertTop = msg => {
-    document.querySelector('#alertMsg').innerHTML = msg;
-    document.querySelector('.myAlert-top').style.display = 'block'; // show
-    setTimeout(function () {
-        document.querySelector('.myAlert-top').style.display = 'none'; // hide
-    }, 2000);
-}
+const myAlertBar = (msg, loading = false) => {
+    const spanAlert = document.querySelector('.alertRefresh'); // exibir atualizando
+    const spinner = document.querySelector('.refreshSpinner');
 
+    loading === true ? spinner.classList.remove('d-none') : spinner.classList.add('d-none');
+
+    document.querySelector('.alertRefreshMsg').innerHTML = msg;
+    spanAlert.classList.toggle('d-none');
+    setTimeout(function () {
+        spanAlert.classList.toggle('d-none');
+    }, 2000);
+};
 
 function saveToIndexedDB(storeName, object) {
     return new Promise(
@@ -155,20 +229,28 @@ function loadFromIndexedDB(storeName, id) {
 
 
 const showPage = async () => {
-    const pLogin = document.querySelector('#painelLogin');
-    const pNew = document.querySelector('.painelNew');
-    const pPrincipal = document.querySelector('#painelPrincipal');
-    const pErrorMsg = document.querySelector('.loginerrormsg');
+    // document.querySelector('.painelBloco').classList.add('exibirPainelBloco');
+
+    // const pLogin = document.querySelector('#painelLogin');
+    // const pNew = document.querySelector('.painelNew');
+    // const pPrincipal = document.querySelector('#painelPrincipal');
+    // const pErrorMsg = document.querySelector('.loginerrormsg');
     if (key_mgmt.getKey()) {
-        pLogin.style.display = 'none'; // hide
-        pPrincipal.style.display = 'block'; // show
-        pNew.style.display = 'block'; // show
-        myAlertTop("Carregando Lista");
-        await loadChannelsList();
+        //     pLogin.style.display = 'none'; // hide
+        //     pPrincipal.style.display = 'block'; // show
+        //     pNew.style.display = 'block'; // show
+        //     myAlertTop("Carregando Lista");
+        // await loadChannelsList();
+        myAlertBar('Atualizando', true);
+        loadChannelsList();
+        document.querySelector('.painelLogin').classList.add('d-none');
+        document.querySelector('.painelPrincipal').classList.remove('d-none');
     } else {
-        pErrorMsg.style.display = 'none'; // hide
-        pPrincipal.style.display = 'none'; // hide
-        pLogin.style.display = 'block'; // show
+        //     pErrorMsg.style.display = 'none'; // hide
+        //     pPrincipal.style.display = 'none'; // hide
+        //     pLogin.style.display = 'block'; // show
+        document.querySelector('.painelPrincipal').classList.add('d-none');
+        document.querySelector('.painelLogin').classList.remove('d-none');
     }
 };
 
@@ -190,16 +272,17 @@ const processLogin = async (usr, pwd) => {
 
         showPage();
     } else {
-        const logErrorMsg = document.querySelector('.loginerrormsg');
-        logErrorMsg.style.display = 'block'; // show
+        document.querySelector('.loginerrormsg').classList.remove('d-none');
+        // const logErrorMsg = document.querySelector('.loginerrormsg');
+        // logErrorMsg.style.display = 'block'; // show
         setTimeout(function () {
-            logErrorMsg.style.display = 'none'; // hide
+            document.querySelector('.loginerrormsg').classList.add('d-none');
+            // logErrorMsg.style.display = 'none'; // hide
         }, 5000);
     }
 };
 
 
-// function saveTokenInLocalDb(token) {
 const saveTokenInLocalDb = token => {
     const dbData = {
         'id': "tk",
@@ -216,10 +299,14 @@ const saveTokenInLocalDb = token => {
 
 
 const loadChannelsList = async () => {
-    channelList = await getListChannels();
+
+    const channelTmp = await getListChannels();
+    channelList = channelTmp.list;
+    filterList = channelTmp.filtroCanais;
+
     if (channelList) {
         channelList.sort(dynamicSort("channell"));
-        processChannelList(channelList);
+        processChannelList(channelList, filterList);
     }
 };
 
@@ -227,22 +314,26 @@ const loadChannelsList = async () => {
 const getUrlData = async (payload) => {
     let authKey = key_mgmt.getKey();
     if (authKey) {
-        const response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod', {
-            method: 'post',
-            body: JSON.stringify(payload)
-        });
-        let data = await response.json();
-        // console.log(data);
-        if (data.auth) {
-            if (authKey != data.token) {
-                key_mgmt.setKey(data.token);
-                saveTokenInLocalDb(data.token);
+        try {
+            const response = await fetch('https://1wdtecach7.execute-api.sa-east-1.amazonaws.com/prod', {
+                method: 'post',
+                body: JSON.stringify(payload)
+            });
+            let data = await response.json();
+            // console.log(data);
+            if (data.auth) {
+                if (authKey != data.token) {
+                    key_mgmt.setKey(data.token);
+                    saveTokenInLocalDb(data.token);
+                }
+                return data.data;
+            } else {
+                key_mgmt.setKey(false);
+                showPage();
+                return false;
             }
-            return data.data;
-        } else {
-            key_mgmt.setKey(false);
-            showPage();
-            return false;
+        } catch (error) {
+            console.log(error);
         }
     }
 }
@@ -264,8 +355,7 @@ const getListChannels = async () => {
 };
 
 
-// function processChannelList(chanArr) {
-const processChannelList = chanArr => {
+const processChannelList = (chanArr, filterList) => {
     // console.time();
     const categorias = ['variedades', 'interno', 'adultos'];
 
@@ -273,11 +363,11 @@ const processChannelList = chanArr => {
     let listNotUndef = chanArr.filter(el => el.stat != "undef");
     let listFile = listNotUndef.filter(el => el.stat == "file");
 
-    let divPainelNew = document.querySelector('.painelNew');
-    let divPainelLista = document.querySelector('.painelLista');
+    let ulPainelNewPicons = document.querySelector('.ulPainelNewPicons');
+    let ulpainelListaCompleta = document.querySelector('.ulpainelListaCompleta');
 
-    divPainelNew.textContent = '';
-    divPainelLista.textContent = '';
+    ulPainelNewPicons.textContent = '';
+    ulpainelListaCompleta.textContent = '';
 
     listFile.unshift({ // adicionando primeiro item vazio para o select box funcionar
         channell: ""
@@ -308,40 +398,28 @@ const processChannelList = chanArr => {
     listUndef.forEach(function (itemChannel, index) {
         let selectItem = itemsSelectFiles.cloneNode(true);
         selectItem.id = "sele." + itemChannel.channell;
-
-        const curRow = createElement({
-            tagName: "div",
-            className: "row justify-content-center align-items-center",
+        const curLi = createElement({
+            tagName: "li",
+            className: "list-group-item d-flex justify-content-between align-items-center",
             childs: [
                 createElement({
-                    tagName: "div",
-                    className: "col-2",
+                    tagName: "span",
+                    className: "col-sm-3",
                     text: itemChannel.channell
                 }),
                 createElement({
-                    tagName: "div",
-                    className: "col-1",
+                    tagName: "span",
+                    className: "col-sm-3",
                     childs: [selectItem]
                 }),
                 createElement({
-                    tagName: "div",
-                    className: "col-2",
-                    childs: [
-                        createElement({
-                            tagName: "button",
-                            className: "btn btn-sm btn-danger btnRemove",
-                            attributes: {
-                                "id": "button." + itemChannel.channell,
-                                "type": "button"
-                            },
-                            text: "Remover"
-                        })
-                    ]
+                    tagName: "span",
+                    className: "col-sm-1",
+                    html: '<i class="far fa-trash-alt delete btnRemove" id="button.' + itemChannel.channell + '"></i>'
                 })
             ]
         });
-
-        divPainelNew.appendChild(curRow);
+        ulPainelNewPicons.appendChild(curLi);
     });
 
     listNotUndef.forEach(function (itemChannel, index) {
@@ -350,54 +428,67 @@ const processChannelList = chanArr => {
         selectItemCat.value = itemChannel.categoria;
 
         itemChannel.stat != "file" ? selectItemCat.disabled = true : false;
-
-        const curRow = createElement({
-            tagName: "div",
-            className: "row justify-content-center align-items-center",
+        const curLi = createElement({
+            tagName: "li",
+            className: "list-group-item d-flex justify-content-between align-items-center",
             childs: [
                 createElement({
-                    tagName: "div",
-                    className: "col-2",
+                    tagName: "span",
+                    className: "col-sm-3",
                     text: itemChannel.channell
                 }),
                 createElement({
-                    tagName: "div",
-                    className: "col-2",
+                    tagName: "span",
+                    className: "col-sm-3",
                     text: itemChannel.redir
                 }),
                 createElement({
-                    tagName: "div",
-                    className: "col-1",
+                    tagName: "span",
+                    className: "col-sm-3",
                     childs: [selectItemCat]
                 }),
                 createElement({
-                    tagName: "div",
-                    className: "col-2",
-                    childs: [
-                        itemChannel.stat != "file" && createElement({
-                            tagName: "button",
-                            className: "btn btn-sm btn-danger btnRemoveRedir",
-                            attributes: {
-                                "id": "button." + itemChannel.channell,
-                                "type": "button"
-                            },
-                            text: "Remover redir"
-                        })
-                    ]
+                    tagName: "span",
+                    className: "col-sm-1",
+                    html: itemChannel.stat != "file" ? '<i class="fas fa-trash-restore delete btnRemoveRedir" id="button.' + itemChannel.channell + '"></i>' : ""
                 })
             ]
         });
-
-        divPainelLista.appendChild(curRow);
-
+        ulpainelListaCompleta.appendChild(curLi);
     });
 
-    // console.timeLog();
     afterDomChange();
-    document.querySelector('.myAlert-top').style.display = 'none'; // hide
 
-    // console.timeEnd();
+    document.querySelector('.listCanaisRequeridos').textContent = '';
+    document.querySelector('.listCanaisIPTV').textContent = '';
+    filterList.canais_requeridos.map(canal => renderAddCanalRequerido(canal));
+    filterList.canais_iptv.map(canal => renderAddCanalIPTV(canal));
+
 }
+
+
+const renderAddCanalRequerido = chn => {
+    const listCanaisRequeridos = document.querySelector('.listCanaisRequeridos');
+    const html = `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>${chn}</span>
+            <i class="far fa-trash-alt delete"></i>
+        </li>
+    `;
+    listCanaisRequeridos.innerHTML += html;
+};
+
+
+const renderAddCanalIPTV = chn => {
+    const listCanaisIPTV = document.querySelector('.listCanaisIPTV');
+    const html = `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>${chn}</span>
+            <i class="far fa-trash-alt delete"></i>
+        </li>
+    `;
+    listCanaisIPTV.innerHTML += html;
+};
 
 
 const afterDomChange = () => {
@@ -451,7 +542,7 @@ const refreshChannels = async () => {
     };
     let response = await getUrlData(reqData);
     if (response) {
-        myAlertTop("Atualizado!");
+        myAlertBar('Atualizando', true);
         await loadChannelsList();
     }
 };
@@ -467,7 +558,7 @@ const changeChannelCategorie = async (pic, newCat) => {
     };
     let response = await getUrlData(reqData);
     if (response) {
-        myAlertTop("Alterado!");
+        myAlertBar('Alterado');
         await loadChannelsList();
     }
 };
@@ -483,7 +574,7 @@ const changeChannelStat = async (pic, redir) => {
     };
     let response = await getUrlData(reqData);
     if (response) {
-        myAlertTop("Alterado!");
+        myAlertBar("Alterado!");
         channelList.forEach(function (itemChannel, index) {
             if (itemChannel.channell == pic) {
                 if (redir != 1) {
@@ -495,7 +586,7 @@ const changeChannelStat = async (pic, redir) => {
                 }
             }
         });
-        processChannelList(channelList);
+        processChannelList(channelList, filterList);
     }
 };
 
@@ -509,14 +600,82 @@ const removeChannel = async (chn) => {
     };
     let response = await getUrlData(reqData);
     if (response) {
-        myAlertTop("Removido!");
+        myAlertBar("Removido!");
         for (let i = 0; i < channelList.length; i++) {
             const nome = channelList[i].channell;
             if (nome == chn) {
                 channelList.splice(i, 1);
             }
         }
-        processChannelList(channelList);
+        processChannelList(channelList, filterList);
+    }
+};
+
+const enviarCanalRequerido = async (chn) => {
+    const reqData = {
+        "method": "add_canal_requerido",
+        "channel": chn,
+        "token": key_mgmt.getKey()
+    };
+    let response = await getUrlData(reqData);
+    // console.log("requerido", chn, response);
+    if (response) {
+        myAlertBar("adicionado!");
+    }
+};
+
+
+const enviarCanalIptv = async (chn) => {
+    const reqData = {
+        "method": "add_canal_iptv",
+        "channel": chn,
+        "token": key_mgmt.getKey()
+    };
+    let response = await getUrlData(reqData);
+    // console.log("iptv", chn, response);
+    if (response) {
+        myAlertBar("adicionado!");
+    }
+};
+
+
+const removerCanalRequerido = async (chn) => {
+    const reqData = {
+        "method": "remove_canal_requerido",
+        "channel": chn,
+        "token": key_mgmt.getKey()
+    };
+    let response = await getUrlData(reqData);
+    // console.log("requerido", chn, response);
+    if (response) {
+        myAlertBar("removido!");
+    }
+};
+
+
+const removerCanalIptv = async (chn) => {
+    const reqData = {
+        "method": "remove_canal_iptv",
+        "channel": chn,
+        "token": key_mgmt.getKey()
+    };
+    let response = await getUrlData(reqData);
+    // console.log("iptv", chn, reqData);
+    if (response) {
+        myAlertBar("removido!");
+    }
+};
+
+
+const removeAllUndef = async () => {
+    const reqData = {
+        "method": "remove_all_undef",
+        "token": key_mgmt.getKey()
+    };
+    let response = await getUrlData(reqData);
+    console.log("remove all", response);
+    if (response) {
+        await loadChannelsList();
     }
 };
 
@@ -540,6 +699,7 @@ const key_mgmt = (() => {
     let keyAuth = false;
     return {
         getKey: () => {
+            // console.log(keyAuth);
             return keyAuth;
         },
         setKey: (key) => {
@@ -560,6 +720,7 @@ const main = async () => {
 main();
 
 //---------------------------------------------------------------------------------------//
+
 
 function createElement(options) {
     // https://gist.github.com/MoOx/8614711
