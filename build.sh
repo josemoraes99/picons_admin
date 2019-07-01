@@ -1,18 +1,23 @@
 #!/bin/bash
-DIST_FOLDER="../docs"
+DIST_FOLDER="docs"
+SRC_FOLDER="src"
 HTML_FILE_NAME="index.html"
 JS_FILE_NAME="script.js"
+DATE=`date +%d_%m_%Y`
 
 rm $DIST_FOLDER/$HTML_FILE_NAME
 rm $DIST_FOLDER/$JS_FILE_NAME
 echo "arquivos apagados"
 
-html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true $HTML_FILE_NAME -o $DIST_FOLDER/$HTML_FILE_NAME
+html-minifier --collapse-whitespace --remove-comments --minify-css true --minify-js true $SRC_FOLDER/$HTML_FILE_NAME -o $DIST_FOLDER/$HTML_FILE_NAME
 echo "$HTML_FILE_NAME minified"
 
-uglifyjs --compress --mangle -o $DIST_FOLDER/$JS_FILE_NAME -- $JS_FILE_NAME
+uglifyjs --compress --mangle -o $DIST_FOLDER/$JS_FILE_NAME -- $SRC_FOLDER/$JS_FILE_NAME
 echo "$JS_FILE_NAME minified"
-echo "Minification complete!"
+echo "Minification complete! $DATE"
+
+git add -A && git commit -m "[update_$DATE]" && git push
+echo "complete."
 
 # how to install
 # sudo npm install -g html-minifier
